@@ -1,9 +1,9 @@
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { UserSpec } from './user.schema';
-import { User } from '../../../entry-points/user/entities/user.entity';
+import { User } from '../../../entry-points/auth/entities/user.entity';
 import { UserDto } from '../../../../domain/common/user/user.dto';
-import { IUserDBRepository } from '../../../entry-points/user/user.repository.types';
+import { IUserDBRepository } from '../../../entry-points/auth/user.repository.types';
 
 
 export class UserDBRepository implements IUserDBRepository {
