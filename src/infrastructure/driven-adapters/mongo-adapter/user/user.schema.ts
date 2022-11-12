@@ -65,6 +65,14 @@ export class UserSpec extends Document implements IUser {
    role: Role;
 
    @Prop({
+        type: String,
+        trim: true,
+        required: false,
+        default: '' //TODO: Change it and search an image
+   })
+   profilePicture?: string;
+
+   @Prop({
         type: SchemaMongoose.Types.ObjectId
    })
    businessId: SchemaMongoose.Types.ObjectId;

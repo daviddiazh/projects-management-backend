@@ -8,5 +8,6 @@ export interface IUser {
     email: string;
     password: string;
     role: Role;
+    profilePicture?: string;
     businessId: Schema.Types.ObjectId
 }

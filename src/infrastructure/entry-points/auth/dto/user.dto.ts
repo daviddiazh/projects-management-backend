@@ -28,6 +28,11 @@ export class CreateUserDto implements IUser {
     @IsEnum(Role)
     @IsNotEmpty()
     role: Role;
+
+    @IsString()
+    @IsOptional()
+    profilePicture?: string;
+
     businessId: Schema.Types.ObjectId
 }
 
