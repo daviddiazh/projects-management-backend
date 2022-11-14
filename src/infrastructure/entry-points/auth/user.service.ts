@@ -1,28 +1,38 @@
 import { Injectable } from '@nestjs/common';
 import { UserDBRepository } from '../../driven-adapters/mongo-adapter/user/user.repository';
-import { LoginDto, SignInDto } from './dto/auth-dto';
+import { User } from './entities/user.entity';
+import { IUserDBRepository } from './user.repository.types';
+import { CreateUserDto } from './dto/user.dto';
 
 @Injectable()
-export class UserService {
+export class UserService implements IUserDBRepository {
 
     constructor(
         private readonly user: UserDBRepository
     ){}
 
-    async signIn (payload: SignInDto): Promise<object | any> {
-        try {
-            return //TODO: Make the use case
-        } catch (error) {
-            
-        }
+    create(payload: CreateUserDto): Promise<User> {
+        return this.user.create(payload);
     }
 
-    async login (payload: LoginDto): Promise<object | any> {
-        try {
-            return //TODO: Make the use case
-        } catch (error) {
-            
-        }
+    findById(id: string): Promise<User> {
+        return this.user.findById(id);
+    }
+
+    findByName(name: string): Promise<User> {
+        return this.user.findByName(name);
+    }
+
+    findAll(): Promise<User[]> {
+        return this.user.findAll();
+    }
+
+    updateRole(id: string, role: string): Promise<User> {
+        return this.updateRole(id, role);
+    }
+
+    delete(id: string): Promise<void> {
+        return this.user.delete(id);
     }
   
 }
