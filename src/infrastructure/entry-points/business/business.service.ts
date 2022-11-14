@@ -14,8 +14,8 @@ export class BusinessService implements IBusinessDBRepository {
     return this.businessRepository.create(createBusinessDto);
   }
 
-  findById(businessId: string) {
-    return this.businessRepository.findById(businessId);
+  findById(id: string) {
+    return this.businessRepository.findById(id);
   }
 
   findByName(businessName: string) {

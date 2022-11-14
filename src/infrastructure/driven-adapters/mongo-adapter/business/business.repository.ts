@@ -1,5 +1,5 @@
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
+import { Model } from 'mongoose';
 import { BusinessSpec } from './business.schema';
 import { Business } from '../../../entry-points/business/entities/business.entity';
 import { BusinessDto } from '../../../../domain/common/business/business.dto';
@@ -19,7 +19,7 @@ export class BusinessDBRepository implements IBusinessDBRepository {
     */
    async create (payload: BusinessDto): Promise<Business> {
         try {
-            const createdBusiness = await new this.businessModel(payload).save();
+            const createdBusiness = await this.businessModel.create(payload);
 
             if( !createdBusiness ){
                 throw new Error('Error creating an Business - Repository');
@@ -39,7 +39,8 @@ export class BusinessDBRepository implements IBusinessDBRepository {
     */
    async findById (id: string): Promise<Business> {
         try {
-            const business = await this.businessModel.findById(id);
+            // const business = await this.businessModel.findById(id);
+            const business = await this.businessModel.findOne({id});
 
             if ( !business ) {
                 throw new Error('Not found business by id - Repository');

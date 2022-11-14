@@ -36,10 +36,10 @@ export class CreateUserDto implements IUser {
     @IsString()
     @IsNotEmpty()
     businessId: Schema.Types.ObjectId
-
-    @IsString()
-    @IsNotEmpty()
-    businessName: string
+    
+    // @IsString()
+    // @IsNotEmpty()
+    // businessName: string
 }
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {}

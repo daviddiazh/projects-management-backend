@@ -1,13 +1,12 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, IsMongoId } from 'class-validator';
 import { IBusiness } from './business.interface';
 import { Schema } from 'mongoose';
 
 export class BusinessDto implements IBusiness {
-    @IsString()
-    @IsNotEmpty()
-    businessName: string;
+    // @IsMongoId()
+    // businessId: Schema.Types.ObjectId;
 
     @IsString()
     @IsNotEmpty()
-    businessId: Schema.Types.ObjectId;
+    businessName: string;
 }

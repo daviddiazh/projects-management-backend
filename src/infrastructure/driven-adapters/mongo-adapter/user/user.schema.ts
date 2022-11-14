@@ -75,16 +75,17 @@ export class UserSpec extends Document implements IUser {
    @Prop({
         type: SchemaMongoose.Types.ObjectId,
         require: true,
-        trim: true
+        trim: true,
+        ref: 'Business',
    })
    businessId: SchemaMongoose.Types.ObjectId;
 
-   @Prop({
-        type: String,
-        require: true,
-        trim: true
-    })
-    businessName: string;
+//    @Prop({
+//         type: String,
+//         require: true,
+//         trim: true
+//     })
+//     businessName: string;
 
 }
 

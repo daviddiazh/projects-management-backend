@@ -2,7 +2,6 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { UserService } from './user.service';
 import { IUserDBRepository } from './user.repository.types';
 import { CreateUserDto } from './dto/user.dto';
-import { User } from './entities/user.entity';
 
 @Controller('user')
 export class UserController implements IUserDBRepository {
@@ -13,14 +12,14 @@ export class UserController implements IUserDBRepository {
     return this.userService.create(createUserDto);
   }
 
-  @Get('/findById-user/:id')
-  findById(@Param('id') id: string){
+  @Post('/findById-user')
+  findById(@Body() id: string){
     return this.userService.findById(id);
   }
 
-  @Get('/findByName-user/:name')
-  findByName(@Param('name') name: string){
-    return this.userService.findByName(name);
+  @Post('/findByName-user')
+  findByName(@Body() name: string){
+    return this.userService.findByName(name); //FIX IT
   }
 
   @Get('/findAll-user')

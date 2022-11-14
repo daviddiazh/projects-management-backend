@@ -13,7 +13,8 @@ import { BusinessDBRepository } from './business/business.repository';
     MongooseModule.forRootAsync({
       useFactory: (configService: ConfigType<typeof config>) => {
         const { url } = configService.mongo;
-        return { url }
+
+        return { uri: url }
       },
       inject: [config.KEY]
     }),

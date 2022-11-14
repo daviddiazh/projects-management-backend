@@ -39,7 +39,7 @@ export class UserDBRepository implements IUserDBRepository {
     */
    async findById (id: string): Promise<User> {
         try {
-            const user = await this.userModel.findById(id);
+            const user = await this.userModel.findOne({id}).populate('businessId');
 
             if ( !user ) {
                 throw new Error('Not found user by id - Repository (USER MODULE)');
@@ -59,7 +59,7 @@ export class UserDBRepository implements IUserDBRepository {
     */
     async findByName (name: string): Promise<User> {
         try {
-            const user = await this.userModel.findOne({name});
+            const user = await this.userModel.findOne({name}).populate('businessId');
 
             if ( !user ) {
                 throw new Error('Not found user by name - Repository (USER MODULE)');
@@ -78,7 +78,7 @@ export class UserDBRepository implements IUserDBRepository {
     */
     async findAll (): Promise<User[]> {
         try {
-            const user = await this.userModel.find();
+            const user = await this.userModel.find().populate('businessId');
 
             if ( !user ) {
                 throw new Error('Not found users - Repository (USER MODULE)');

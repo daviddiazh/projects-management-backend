@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { BusinessService } from './business.service';
 import { CreateBusinessDto } from './dto/create-business.dto';
 import { IBusinessDBRepository } from './business.repository.types';
 
-@Controller('business')
+@Controller('/business')
 export class BusinessController implements IBusinessDBRepository {
   constructor(private readonly businessService: BusinessService) {}
 
@@ -12,9 +12,9 @@ export class BusinessController implements IBusinessDBRepository {
     return this.businessService.create(createBusinessDto);
   }
 
-  @Get('/findById-business/:businessId')
-  findById(@Param('businessId') businessId: string) {
-    return this.businessService.findById(businessId);
+  @Post('/findById-business')
+  findById(@Body() id: string) {
+    return this.businessService.findById(id);
   }
 
   @Get('/findByName-business/:businessName') //TODO: Check it

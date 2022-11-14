@@ -6,7 +6,7 @@ import { LoginDto, SignInDto } from './dto/auth-dto';
 export class AuthService {
 
     constructor(
-        private readonly user: UserDBRepository
+        private readonly auth: UserDBRepository
     ){}
 
     async signIn (payload: SignInDto): Promise<object | any> {

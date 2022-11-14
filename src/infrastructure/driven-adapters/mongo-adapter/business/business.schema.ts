@@ -16,12 +16,11 @@ import { IBusiness } from '../../../../domain/common/business/business.interface
 
 export class BusinessSpec extends Document implements IBusiness {
 
-    @Prop({
-        type: SchemaMongoose.Types.ObjectId,
-        require: true,
-        trim: true
-    })
-   businessId: SchemaMongoose.Types.ObjectId;
+//     @Prop({
+//         type: SchemaMongoose.Types.ObjectId,
+//         trim: true,
+//     })
+//    businessId: SchemaMongoose.Types.ObjectId;
 
    @Prop({
         type: String,
