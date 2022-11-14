@@ -10,4 +10,5 @@ export interface IUser {
     role: Role;
     profilePicture?: string;
     businessId: Schema.Types.ObjectId
+    businessName: string
 }

@@ -4,6 +4,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import config from 'src/application/config';
 import { UserSchema } from './user/user.schema';
 import { UserDBRepository } from './user/user.repository';
+import { BusinessSchema } from './business/business.schema';
+import { BusinessDBRepository } from './business/business.repository';
 
 @Global()
 @Module({
@@ -20,9 +22,13 @@ import { UserDBRepository } from './user/user.repository';
         name: 'User',
         schema: UserSchema
       },
+      {
+        name: 'Business',
+        schema: BusinessSchema
+      },
     ])
   ],
-  providers: [UserDBRepository, ],
-  exports: [MongooseModule, UserDBRepository, ]
+  providers: [UserDBRepository, BusinessDBRepository],
+  exports: [MongooseModule, UserDBRepository, BusinessDBRepository, ]
 })
 export class DatabaseModule {}

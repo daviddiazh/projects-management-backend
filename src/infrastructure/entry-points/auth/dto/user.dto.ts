@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { IsString, IsNotEmpty, IsOptional, IsEnum } from 'class-validator';
+import { IsString, IsEmail, IsNotEmpty, IsOptional, IsEnum } from 'class-validator';
 import { Schema } from 'mongoose';
 import { IUser } from '../../../../domain/common/user/user.interface';
 import { Role } from '../../../../domain/common/user/user-role.enum';
@@ -17,7 +17,7 @@ export class CreateUserDto implements IUser {
     @IsOptional()
     phone?: string;
 
-    @IsString()
+    @IsEmail()
     @IsNotEmpty()
     email: string;
 
@@ -33,7 +33,13 @@ export class CreateUserDto implements IUser {
     @IsOptional()
     profilePicture?: string;
 
+    @IsString()
+    @IsNotEmpty()
     businessId: Schema.Types.ObjectId
+
+    @IsString()
+    @IsNotEmpty()
+    businessName: string
 }
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {}

@@ -73,9 +73,18 @@ export class UserSpec extends Document implements IUser {
    profilePicture?: string;
 
    @Prop({
-        type: SchemaMongoose.Types.ObjectId
+        type: SchemaMongoose.Types.ObjectId,
+        require: true,
+        trim: true
    })
    businessId: SchemaMongoose.Types.ObjectId;
+
+   @Prop({
+        type: String,
+        require: true,
+        trim: true
+    })
+    businessName: string;
 
 }
 

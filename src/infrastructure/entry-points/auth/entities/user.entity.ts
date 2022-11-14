@@ -9,5 +9,6 @@ export class User implements IUser{
     email: string;
     password: string;
     role: Role;
-    businessId: Schema.Types.ObjectId
+    businessId: Schema.Types.ObjectId;
+    businessName: string
 }
