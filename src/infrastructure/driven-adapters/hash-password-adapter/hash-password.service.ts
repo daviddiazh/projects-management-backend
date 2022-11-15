@@ -5,8 +5,12 @@ import { HashRepository } from './hash-password.repository';
 export class HashService {
   constructor(private hashRepository: HashRepository) {}
 
-  hash(password: string) {
-    return this.hashRepository.hash(password)
+  async hash(password: string) {
+    return await this.hashRepository.hash(password)
+  }
+  
+  async compare(password: string, encryptedPassword: string) {
+    return await this.hashRepository.compare(password, encryptedPassword);
   }
   
 }

@@ -57,15 +57,16 @@ export class UserDBRepository implements IUserDBRepository {
      * @param name
      * @return user by name found - The user found
     */
-    async findByName (name: string): Promise<User> {
+    async findByName (name: string): Promise<User[]> {
         try {
-            const user = await this.userModel.findOne({name}).populate('businessId');
+            const users = await this.userModel.find({name}).populate('businessId').exec();
+            console.log('users: - findByName ', users) //FIX IT
 
-            if ( !user ) {
+            if ( !users ) {
                 throw new Error('Not found user by name - Repository (USER MODULE)');
             }
 
-            return user;
+            return users;
         } catch (error) {
             console.log('Down Service in FindByName method on Repository - ADAPTER');
             throw new Error(error);
