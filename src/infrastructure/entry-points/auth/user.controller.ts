@@ -3,7 +3,7 @@ import { UserService } from './user.service';
 import { IUserDBRepository } from './user.repository.types';
 import { CreateUserDto } from './dto/user.dto';
 
-@Controller('user')
+@Controller('/user')
 export class UserController implements IUserDBRepository {
   constructor(private readonly userService: UserService) {}
 
@@ -12,27 +12,27 @@ export class UserController implements IUserDBRepository {
     return this.userService.create(createUserDto);
   }
 
-  @Post('/findById-user')
+  @Post('/findById')
   findById(@Body() id: string){
     return this.userService.findById(id);
   }
 
-  @Post('/findByName-user')
+  @Post('/findByName')
   findByName(@Body() name: string){
     return this.userService.findByName(name); //FIX IT
   }
 
-  @Get('/findAll-user')
+  @Get('/findAll')
   findAll(){
     return this.userService.findAll();
   }
 
-  @Put('/updateRole-user/:id')
+  @Put('/updateRole/:id')
   updateRole(@Param('id') id: string, @Body() role: string) {
     return this.userService.updateRole(id, role);
   }
 
-  @Delete('/delete-user/:id')
+  @Delete('/delete/:id')
   delete(@Param('id') id: string) {
     return this.userService.delete(id);
   }
