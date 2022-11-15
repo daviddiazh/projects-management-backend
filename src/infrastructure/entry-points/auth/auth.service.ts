@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UserDBRepository } from '../../driven-adapters/mongo-adapter/user/user.repository';
 import { LoginDto, SignInDto } from './dto/auth-dto';
-import bcrypt from 'bcrypt';
 import { HashService } from '../../driven-adapters/hash-password-adapter/hash-password.service';
 
 @Injectable()
@@ -12,7 +11,7 @@ export class AuthService {
         private readonly hashService: HashService
     ){}
 
-    async signIn (payload: SignInDto): Promise<object | any> {
+    async signIn (payload: SignInDto): Promise<object | any> { //TODO: Change method name
         try {
             const { password, ...userData } = payload; 
             

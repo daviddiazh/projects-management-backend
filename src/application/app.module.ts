@@ -9,11 +9,11 @@ import config from './config';
 
 @Module({
   imports: [
-    HashModule, 
-    DatabaseModule, 
-    UserModule, 
-    UserModule, 
-    BusinessModule, 
+    HashModule,
+    DatabaseModule,
+    UserModule,
+    UserModule,
+    BusinessModule,
     ConfigModule.forRoot({
       envFilePath: '.env',
       load: [config],

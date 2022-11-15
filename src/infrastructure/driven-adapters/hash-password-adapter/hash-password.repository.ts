@@ -1,6 +1,7 @@
 import * as bcrypt from 'bcrypt';
+import { IHashTypesRepository } from '../../../domain/types-adapters/hash-password.repository.types';
 
-export class HashRepository {
+export class HashRepository implements IHashTypesRepository {
 
     async hash(password: string) {
         const hash = await bcrypt.hash(password, 10);

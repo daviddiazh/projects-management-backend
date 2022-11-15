@@ -38,7 +38,7 @@ export class UserDBRepository implements IUserDBRepository {
 
     /**
      * Find a User
-     * @param id
+     * @body id
      * @return user found - The user found
     */
    async findById (id: string): Promise<User> {
@@ -49,7 +49,11 @@ export class UserDBRepository implements IUserDBRepository {
                 throw new Error('Not found user by id - Repository (USER MODULE)');
             }
 
-            return user;
+            let newObjectUser = user;
+            newObjectUser = newObjectUser.toObject();
+            delete newObjectUser.password;
+
+            return newObjectUser;
         } catch (error) {
             console.log('Down Service in FindById method on Repository - ADAPTER');
             throw new Error(error);
@@ -58,19 +62,26 @@ export class UserDBRepository implements IUserDBRepository {
 
    /**
      * Find a User
-     * @param name
+     * @body name, lastName
      * @return user by name found - The user found
     */
-    async findByName (name: string): Promise<User[]> {
+    async findByName (name: string, lastName: string): Promise<User[]> {
         try {
-            const users = await this.userModel.find({name}).populate('businessId').exec();
-            console.log('users: - findByName ', users) //FIX IT
+            const users: any = await this.userModel.find({name, lastName}).populate('businessId');
+            // console.log('users: - findByName ', users)
 
             if ( !users ) {
                 throw new Error('Not found user by name - Repository (USER MODULE)');
             }
 
-            return users;
+            let newObjectUsers = users;
+            const returnUsers = newObjectUsers.map(user => {
+                const { _doc: { password, ...userData } } = user;
+                console.log(userData)
+                return userData
+            });
+
+            return returnUsers;
         } catch (error) {
             console.log('Down Service in FindByName method on Repository - ADAPTER');
             throw new Error(error);

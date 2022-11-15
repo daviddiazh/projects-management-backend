@@ -18,8 +18,9 @@ export class UserController implements IUserDBRepository {
   }
 
   @Post('/findByName')
-  findByName(@Body() name: string){
-    return this.userService.findByName(name); //FIX IT
+  findByName(@Body() payload: any){
+    const { name, lastName } = payload;
+    return this.userService.findByName(name, lastName);
   }
 
   @Get('/findAll')
