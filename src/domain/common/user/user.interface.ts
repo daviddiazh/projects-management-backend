@@ -6,7 +6,7 @@ export interface IUser {
     lastName: string;
     phone?: string;
     email: string;
-    password: string;
+    password?: string;
     role: Role;
     profilePicture?: string;
     businessId: Schema.Types.ObjectId

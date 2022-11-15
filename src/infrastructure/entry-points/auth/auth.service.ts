@@ -23,9 +23,10 @@ export class AuthService {
                 password: passwordEncrypted
             });
 
-            return {
-                user,
-            };
+            // return {
+            //     user,
+            // };
+            return user;
         } catch (error) {
             console.log('Down Service - signIn Authentication');
             throw new Error(error);

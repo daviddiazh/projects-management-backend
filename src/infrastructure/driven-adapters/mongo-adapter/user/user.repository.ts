@@ -20,12 +20,16 @@ export class UserDBRepository implements IUserDBRepository {
    async create (payload: UserDto): Promise<User> {
         try {
             const createdUser = await new this.userModel(payload).save();
-
+            
             if( !createdUser ){
                 throw new Error('Error creating an User - Repository (USER MODULE)');
             }
 
-            return createdUser;
+            let newObjectUser = createdUser;
+            newObjectUser = newObjectUser.toObject();
+            delete newObjectUser.password;
+
+            return newObjectUser;
         } catch (error) {
             console.log('Down Service in Create method on Repository - ADAPTER');
             throw new Error(error);

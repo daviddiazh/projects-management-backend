@@ -7,7 +7,7 @@ export class User implements IUser{
     lastName: string;
     phone?: string;
     email: string;
-    password: string;
+    password?: string;
     role: Role;
     businessId: Schema.Types.ObjectId;
     // businessName: string
