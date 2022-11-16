@@ -19,7 +19,10 @@ export class UserDBRepository implements IUserDBRepository {
     */
    async create (payload: UserDto): Promise<User> {
         try {
-            const createdUser = await new this.userModel(payload).save();
+            let {email, ...userData} = payload;
+            email = email.toLowerCase().trim();
+            const newPayload = {email, ...userData}
+            const createdUser = await new this.userModel(newPayload).save();
             
             if( !createdUser ){
                 throw new Error('Error creating an User - Repository (USER MODULE)');
@@ -81,6 +84,26 @@ export class UserDBRepository implements IUserDBRepository {
             });
 
             return returnUsers;
+        } catch (error) {
+            console.log('Down Service in FindByName method on Repository - ADAPTER');
+            throw new Error(error);
+        }
+   }
+
+   /**
+     * Find a User
+     * @body email
+     * @return user by email found - The user found
+    */
+    async findByEmail (email: string): Promise<User> {
+        try {
+            const user: User = await this.userModel.findOne({email}).populate('businessId');
+
+            if ( !user ) {
+                throw new Error('Not found user by email - Repository (USER MODULE)');
+            }
+
+            return user;
         } catch (error) {
             console.log('Down Service in FindByName method on Repository - ADAPTER');
             throw new Error(error);

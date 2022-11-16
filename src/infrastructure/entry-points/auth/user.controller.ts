@@ -13,7 +13,8 @@ export class UserController implements IUserDBRepository {
   }
 
   @Post('/findById')
-  findById(@Body() id: string){
+  findById(@Body() payload: any){
+    const { id } = payload;
     return this.userService.findById(id);
   }
 
@@ -21,6 +22,12 @@ export class UserController implements IUserDBRepository {
   findByName(@Body() payload: any){
     const { name, lastName } = payload;
     return this.userService.findByName(name, lastName);
+  }
+
+  @Post('/findByEmail')
+  findByEmail(@Body() payload: any){
+    const { email } = payload;
+    return this.userService.findByEmail(email);
   }
 
   @Get('/findAll')

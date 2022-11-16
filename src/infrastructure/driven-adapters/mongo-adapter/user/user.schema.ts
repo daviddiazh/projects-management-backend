@@ -7,7 +7,7 @@ import { Role } from '../../../../domain/common/user/user-role.enum';
     toJSON: {
         virtuals: true,
         transform: function( doc: any, ret: any ) {
-            delete ret._id;
+            // delete ret._id;
             delete ret.__v;
             return ret;
         },
@@ -16,6 +16,13 @@ import { Role } from '../../../../domain/common/user/user-role.enum';
 })
 
 export class UserSpec extends Document implements IUser {
+
+    // @Prop({
+    //     type: SchemaMongoose.Types.ObjectId,
+    //     trim: true,
+        
+    // })
+    // _id: SchemaMongoose.Types.ObjectId;
 
     @Prop({
         type: String,

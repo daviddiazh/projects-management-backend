@@ -6,7 +6,8 @@ export default registerAs('config', () => {
             url: process.env.MONGO_URI
         },
         common: {
-            port: process.env.PORT
+            port: process.env.PORT,
+            jwt_secret_key: process.env.JWT_SECRET
         }
     }
 })
