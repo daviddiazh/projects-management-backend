@@ -68,7 +68,6 @@ export class UserDBRepository implements IUserDBRepository {
     async findByName (name: string, lastName: string): Promise<User[]> {
         try {
             const users: any = await this.userModel.find({name, lastName}).populate('businessId');
-            // console.log('users: - findByName ', users)
 
             if ( !users ) {
                 throw new Error('Not found user by name - Repository (USER MODULE)');
@@ -77,7 +76,7 @@ export class UserDBRepository implements IUserDBRepository {
             let newObjectUsers = users;
             const returnUsers = newObjectUsers.map(user => {
                 const { _doc: { password, ...userData } } = user;
-                console.log(userData)
+                
                 return userData
             });
 
@@ -94,13 +93,19 @@ export class UserDBRepository implements IUserDBRepository {
     */
     async findAll (): Promise<User[]> {
         try {
-            const user = await this.userModel.find().populate('businessId');
+            const users: any = await this.userModel.find().populate('businessId');
 
-            if ( !user ) {
+            if ( !users ) {
                 throw new Error('Not found users - Repository (USER MODULE)');
             }
+            let newObjectUsers = users;
+            const returnUsers = newObjectUsers.map(user => {
+                const { _doc: { password, ...userData } } = user;
+                
+                return userData
+            });
 
-            return user;
+            return returnUsers;
         } catch (error) {
             console.log('Down Service in FINDALL method on Repository - ADAPTER');
             throw new Error(error);
@@ -119,6 +124,10 @@ export class UserDBRepository implements IUserDBRepository {
             if ( !user ) {
                 throw new Error('Not found user - Repository (USER MODULE)');
             }
+
+            let newObjectUser = user;
+            newObjectUser = newObjectUser.toObject();
+            delete newObjectUser.password;
 
             return user;
         } catch (error) {

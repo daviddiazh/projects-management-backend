@@ -15,4 +15,4 @@ export class LoginDto implements ILogin {
 
 }
 
-export class SignInDto extends CreateUserDto implements IUser {}
+export class signUpDto extends CreateUserDto implements IUser {}
