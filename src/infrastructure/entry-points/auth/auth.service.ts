@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, InternalServerErrorException } from '@nestjs/common';
 import { UserDBRepository } from '../../driven-adapters/mongo-adapter/user/user.repository';
 import { LoginDto, signUpDto } from './dto/auth-dto';
 import { HashService } from '../../driven-adapters/hash-password-adapter/hash-password.service';
@@ -19,7 +19,7 @@ export class AuthService {
         try {
             const { password, ...userData } = payload;
             
-            const passwordEncrypted = await this.hashService.hash(password)
+            const passwordEncrypted = await this.hashService.hash(password);
 
             const user = this.auth.create({
                 ...userData,
@@ -32,7 +32,7 @@ export class AuthService {
             return user;
         } catch (error) {
             console.log('Down Service - signUp Authentication');
-            throw new Error(error);
+            throw new InternalServerErrorException('Down Service - signUp Authentication')
         }
     }
 
@@ -41,26 +41,22 @@ export class AuthService {
             const { password: passwordByRequest, email: emailByRequest } = payload;
 
             const user = await this.auth.findByEmail(emailByRequest);
+            const { email, password, _id } = user;
 
-            const isMatchPassword = await this.hashService.compare(passwordByRequest, user.password);
+            const isMatchPassword = await this.hashService.compare(passwordByRequest, password);
 
             if( !isMatchPassword ){
-                throw new UnauthorizedException('Credentials are not valid!'); //TODO: Remove password text
+                throw new UnauthorizedException('Credentials are not valid');
             }
-
-            const { email, password, _id } = user;
-            console.log('_id: ', _id)
 
             return {
                 email, 
                 password,
-                // token: this.jwtService.sign({id: _id + ''}) //TODO: Cambiar x id
                 token: this.jwtService.sign({id: _id + ''})
             };
-            // return user;
         } catch (error) {
             console.log('Down Service - login Authentication');
-            throw new Error(error);
+            throw new InternalServerErrorException('Down Service - login Authentication');
         }
     }
   

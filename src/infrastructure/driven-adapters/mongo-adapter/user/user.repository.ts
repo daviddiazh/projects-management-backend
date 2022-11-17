@@ -1,10 +1,10 @@
 import { InjectModel } from "@nestjs/mongoose";
+import { BadRequestException, NotFoundException, ServiceUnavailableException } from '@nestjs/common';
 import { Model } from "mongoose";
 import { UserSpec } from './user.schema';
 import { User } from '../../../entry-points/auth/entities/user.entity';
 import { UserDto } from '../../../../domain/common/user/user.dto';
 import { IUserDBRepository } from '../../../entry-points/auth/user.repository.types';
-import { BadRequestException, InternalServerErrorException } from '@nestjs/common';
 
 
 export class UserDBRepository implements IUserDBRepository {
@@ -36,7 +36,7 @@ export class UserDBRepository implements IUserDBRepository {
             return newObjectUser;
         } catch (error) {
             console.log('Down Service in Create method on Repository - ADAPTER');
-            throw new InternalServerErrorException('Down Service in Create method on Repository - ADAPTER')
+            throw new ServiceUnavailableException(`Down Service in create method - user: ${error.message}`);
         }
    }
 
@@ -50,7 +50,7 @@ export class UserDBRepository implements IUserDBRepository {
             const user = await this.userModel.findOne({id}).populate('businessId');
 
             if ( !user ) {
-                throw new Error('Not found user by id - Repository (USER MODULE)');
+                throw new NotFoundException('Not found user by id - Repository (USER MODULE)');
             }
 
             let newObjectUser = user;
@@ -60,7 +60,7 @@ export class UserDBRepository implements IUserDBRepository {
             return newObjectUser;
         } catch (error) {
             console.log('Down Service in FindById method on Repository - ADAPTER');
-            throw new Error(error);
+            throw new ServiceUnavailableException(`Down Service in find by id method: ${error.message}`);
         }
    }
 
@@ -74,7 +74,7 @@ export class UserDBRepository implements IUserDBRepository {
             const users: any = await this.userModel.find({name, lastName}).populate('businessId');
 
             if ( !users ) {
-                throw new Error('Not found user by name - Repository (USER MODULE)');
+                throw new NotFoundException('Not found user by name - Repository (USER MODULE)');
             }
 
             let newObjectUsers = users;
@@ -87,7 +87,7 @@ export class UserDBRepository implements IUserDBRepository {
             return returnUsers;
         } catch (error) {
             console.log('Down Service in FindByName method on Repository - ADAPTER');
-            throw new Error(error);
+            throw new ServiceUnavailableException(`Down Service in findByName method: ${error.message}`);
         }
    }
 
@@ -101,13 +101,13 @@ export class UserDBRepository implements IUserDBRepository {
             const user: User = await this.userModel.findOne({email}).populate('businessId');
 
             if ( !user ) {
-                throw new Error('Not found user by email - Repository (USER MODULE)');
+                throw new NotFoundException('Not found user by email - Repository (USER MODULE)');
             }
 
             return user;
         } catch (error) {
             console.log('Down Service in FindByName method on Repository - ADAPTER');
-            throw new Error(error);
+            throw new ServiceUnavailableException(`Down Service in findByEmail method: ${error.message}`);
         }
    }
 
@@ -132,7 +132,7 @@ export class UserDBRepository implements IUserDBRepository {
             return returnUsers;
         } catch (error) {
             console.log('Down Service in FINDALL method on Repository - ADAPTER');
-            throw new Error(error);
+            throw new ServiceUnavailableException(`Down Service in findAll method: ${error.message}`);
         }
    }
 
@@ -146,7 +146,7 @@ export class UserDBRepository implements IUserDBRepository {
             const user = await this.userModel.findOneAndUpdate({id, role});
 
             if ( !user ) {
-                throw new Error('Not found user - Repository (USER MODULE)');
+                throw new NotFoundException('Not found user - Repository (USER MODULE)');
             }
 
             let newObjectUser = user;
@@ -156,7 +156,7 @@ export class UserDBRepository implements IUserDBRepository {
             return user;
         } catch (error) {
             console.log('Down Service in UPDATEROLE method on Repository - ADAPTER');
-            throw new Error(error);
+            throw new ServiceUnavailableException(`Down Service in updateRole method: ${error.message}`);
         }
    }
 
@@ -170,13 +170,13 @@ export class UserDBRepository implements IUserDBRepository {
             const user = await this.userModel.findByIdAndDelete(id);
 
             if ( !user ) {
-                throw new Error('Not found user - Repository (USER MODULE)');
+                throw new NotFoundException('Not found user - Repository (USER MODULE)');
             }
 
             return;
         } catch (error) {
             console.log('Down Service in DELETE method on Repository - ADAPTER');
-            throw new Error(error);
+            throw new ServiceUnavailableException(`Down Service in delete method: ${error.message}`);
         }
    }
 
