@@ -26,10 +26,10 @@ export class AuthService {
                 password: passwordEncrypted
             });
 
-            // return {
-            //     user,
-            // };
-            return user;
+            return {
+                ...user,
+                token: this.jwtService.sign({id: (await user)._id + ''})
+            };
         } catch (error) {
             console.log('Down Service - signUp Authentication');
             throw new InternalServerErrorException('Down Service - signUp Authentication')

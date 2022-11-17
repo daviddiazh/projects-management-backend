@@ -17,13 +17,6 @@ import { Role } from '../../../../domain/common/user/user-role.enum';
 
 export class UserSpec extends Document implements IUser {
 
-    // @Prop({
-    //     type: SchemaMongoose.Types.ObjectId,
-    //     trim: true,
-        
-    // })
-    // _id: SchemaMongoose.Types.ObjectId;
-
     @Prop({
         type: String,
         required: true,
@@ -65,7 +58,7 @@ export class UserSpec extends Document implements IUser {
         required: true,
         trim: true,
         enum: {
-            values: ['USER', 'ADMIN', 'EMPLOYEE'],
+            values: [ 'USER', 'CLIENT', 'EMPLOYEE', 'ADMIN', ],
             default: 'USER',
         },
     })
@@ -86,13 +79,6 @@ export class UserSpec extends Document implements IUser {
         ref: 'Business',
    })
    businessId: SchemaMongoose.Types.ObjectId;
-
-//    @Prop({
-//         type: String,
-//         require: true,
-//         trim: true
-//     })
-//     businessName: string;
 
 }
 
