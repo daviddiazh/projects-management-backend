@@ -8,10 +8,10 @@ export class JwtRepository implements IJwtTypesRepository {
         private jwtService: JwtService,
     ){}
 
-    sign ( payload: JwtPayload ) {
+    async sign ( payload: JwtPayload ): Promise<string> {
         console.log('------------------------------------------')
-        console.log('jwtService: ', this?.jwtService?.sign(payload))
-        const token = this?.jwtService?.sign( payload );
+        console.log(typeof this.jwtService)
+        const token = await this.jwtService.sign(payload);
         console.log(token)
         return token;
     }

@@ -54,7 +54,8 @@ export class AuthService {
             return {
                 email, 
                 password,
-                token: this.jwtService.sign({id: _id + ''}) //TODO: Cambiar x id
+                // token: this.jwtService.sign({id: _id + ''}) //TODO: Cambiar x id
+                token: this.jwtService.sign({id: _id + ''})
             };
             // return user;
         } catch (error) {

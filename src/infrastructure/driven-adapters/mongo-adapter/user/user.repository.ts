@@ -4,6 +4,7 @@ import { UserSpec } from './user.schema';
 import { User } from '../../../entry-points/auth/entities/user.entity';
 import { UserDto } from '../../../../domain/common/user/user.dto';
 import { IUserDBRepository } from '../../../entry-points/auth/user.repository.types';
+import { BadRequestException, InternalServerErrorException } from '@nestjs/common';
 
 
 export class UserDBRepository implements IUserDBRepository {
@@ -25,7 +26,7 @@ export class UserDBRepository implements IUserDBRepository {
             const createdUser = await new this.userModel(newPayload).save();
             
             if( !createdUser ){
-                throw new Error('Error creating an User - Repository (USER MODULE)');
+                throw new BadRequestException('Error creating an User - Repository (USER MODULE)');
             }
 
             let newObjectUser = createdUser;
@@ -35,7 +36,7 @@ export class UserDBRepository implements IUserDBRepository {
             return newObjectUser;
         } catch (error) {
             console.log('Down Service in Create method on Repository - ADAPTER');
-            throw new Error(error);
+            throw new InternalServerErrorException('Down Service in Create method on Repository - ADAPTER')
         }
    }
 
