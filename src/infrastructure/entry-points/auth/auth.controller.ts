@@ -20,7 +20,7 @@ export class AuthController {
   }
 
   @Get('/private')
-  @UseGuards( AuthGuard('local') )
+  @UseGuards( AuthGuard() )
   testPrivateRoute() {
 
     return {

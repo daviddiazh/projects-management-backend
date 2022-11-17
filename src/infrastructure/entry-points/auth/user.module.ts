@@ -3,16 +3,21 @@ import { AuthService } from './auth.service';
 import { UserService } from './user.service';
 import { AuthController } from './auth.controller';
 import { UserController } from './user.controller';
-import { JwtModule } from '../../driven-adapters/jwt-adapter/jwt.module';
-import { PassportModule } from '../../driven-adapters/passport-adapter/passport.module';
+import { PassportModule } from '@nestjs/passport';
 
-import { JwtModule as JwtModuleDependency} from '@nestjs/jwt'
+import { JwtModule} from '@nestjs/jwt'
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 
 @Module({
-  imports: [  JwtModule, PassportModule,
-    JwtModuleDependency.registerAsync({
+  imports: [ 
+    PassportModule,
+    ConfigModule,
+
+    PassportModule.register({ defaultStrategy: 'jwt' }),
+
+    JwtModule.registerAsync({
       imports: [ ConfigModule ],
       inject: [ ConfigService ],
       useFactory: (configService: ConfigService) => {
@@ -26,7 +31,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       }
     }), 
   ],
-  providers: [AuthService, UserService ],
-  controllers: [AuthController, UserController, ]
+  providers: [AuthService, UserService, JwtStrategy ],
+  controllers: [AuthController, UserController, ],
+  exports: [JwtStrategy, PassportModule, JwtModule]
 })
 export class UserModule {}
