@@ -36,7 +36,7 @@ export class UserSpec extends Document implements IUser {
         required: false,
         trim: true,
     })
-   phone?: string; //TODO: Check it
+   phone?: number; //TODO: Check it
 
    @Prop({
         type: String,
@@ -55,12 +55,13 @@ export class UserSpec extends Document implements IUser {
 
    @Prop({
         type: String,
-        required: true,
+        required: false,
         trim: true,
         enum: {
-            values: [ 'USER', 'CLIENT', 'EMPLOYEE', 'ADMIN', ],
-            default: 'USER',
+            values: [ Role.USER, Role.CLIENT, Role.EMPLOYEE, Role.ADMIN ],
+            default: Role.USER,
         },
+        default: Role.USER
     })
    role: Role;
 
