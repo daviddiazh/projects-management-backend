@@ -18,7 +18,12 @@ docker-compose up -d
 mongodb://localhost:27017/projects_management
 ```
 
-* Para reconstruir los modulos de node y levantar el servidor de node con nestjs es necesario tener instalado *yarn* y luego ejecutar este comando:
+* Para reconstruir los modulos de node es necesario ejecutar este comando:
 ```
-yarn
+npm i 
+```
+
+Para levantar el servidor de node con nestjs es necesario ejecutar este comando:
+```
+npm run start:dev 
 ```

@@ -13,8 +13,8 @@ export class BusinessController implements IBusinessDBRepository {
   }
 
   @Post('/findById')
-  findById(@Body() id: string) {
-    return this.businessService.findById(id);
+  findById(@Body() _id: string) {
+    return this.businessService.findById(_id);
   }
 
   @Get('/findByName/:businessName') //TODO: Check it

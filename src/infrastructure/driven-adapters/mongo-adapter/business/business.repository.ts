@@ -38,10 +38,10 @@ export class BusinessDBRepository implements IBusinessDBRepository {
      * @param id
      * @return business found - The found business
     */
-   async findById (id: string): Promise<Business> {
+   async findById (_id: string): Promise<Business> {
         try {
             // const business = await this.businessModel.findById(id);
-            const business = await this.businessModel.findOne({id});
+            const business = await this.businessModel.findById(_id);
 
             if ( !business ) {
                 throw new NotFoundException('Not found business by id - Repository');
