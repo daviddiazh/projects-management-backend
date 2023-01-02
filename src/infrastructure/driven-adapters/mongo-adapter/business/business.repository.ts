@@ -93,4 +93,23 @@ export class BusinessDBRepository implements IBusinessDBRepository {
         }
    }
 
+   /**
+     * Update name of Business
+     * @return business updated
+    */
+   async update (businessId: string, businessName: string): Promise<Business> {
+    try {
+        const business = await this.businessModel.findByIdAndUpdate(businessId, { businessName }, {new: true});
+
+        if ( !business ) {
+            throw new NotFoundException('Not found business by id - Update Repository');
+        }
+
+        return business;
+    } catch (error) {
+        console.log('Down Service in Find method on Repository - ADAPTER');
+        throw new ServiceUnavailableException(`Down Service in find all method - business: ${error.message}`)
+    }
+}
+
 }

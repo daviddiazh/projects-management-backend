@@ -8,7 +8,7 @@ export interface IProject {
     responsiblesId: Schema.Types.ObjectId[]; //TODO: Check it
     title: string;
     description: string;
-    acceptanceCriteria: string;
+    acceptanceCriteria?: string;
     status: Status;
-    commentaries: ICommentary[];
+    commentaries?: ICommentary[];
 }

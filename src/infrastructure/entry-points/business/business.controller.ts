@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put } from '@nestjs/common';
 import { BusinessService } from './business.service';
 import { CreateBusinessDto } from './dto/create-business.dto';
 import { IBusinessDBRepository } from './business.repository.types';
+import { Business } from './entities/business.entity';
 
 @Controller('/business')
 export class BusinessController implements IBusinessDBRepository {
@@ -27,4 +28,9 @@ export class BusinessController implements IBusinessDBRepository {
     return this.businessService.findAll();
   }
 
+  @Put('/update')
+  update(@Body() payload): Promise<Business> {
+    const { businessId, businessName} = payload;
+    return this.businessService.update( businessId, businessName );
+  }
 }
