@@ -1,15 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
+import { ProjectDBRepository } from '../../driven-adapters/mongo-adapter/project/project.repository';
 
 @Injectable()
 export class ProjectService {
+
+  constructor(
+    private readonly projectRepository: ProjectDBRepository,
+  ){}
+
   create(createProjectDto: CreateProjectDto) {
-    return 'This action adds a new project';
+    return this.projectRepository.create(createProjectDto);
   }
 
   findAll() {
-    return `This action returns all project`;
+    return this.projectRepository.findAll();
   }
 
   findOne(id: number) {

@@ -6,6 +6,7 @@ import { UserModule } from '../infrastructure/entry-points/auth/user.module';
 import { BusinessModule } from '../infrastructure/entry-points/business/business.module';
 import { ConfigModule } from '@nestjs/config';
 import config from './config';
+import { ProjectModule } from '../infrastructure/entry-points/project/project.module';
 
 @Module({
   imports: [
@@ -14,6 +15,8 @@ import config from './config';
     UserModule,
     UserModule,
     BusinessModule,
+    ProjectModule,
+    
     ConfigModule.forRoot({
       envFilePath: '.env',
       load: [config],

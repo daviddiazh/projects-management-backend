@@ -6,6 +6,8 @@ import { UserSchema } from './user/user.schema';
 import { UserDBRepository } from './user/user.repository';
 import { BusinessSchema } from './business/business.schema';
 import { BusinessDBRepository } from './business/business.repository';
+import { ProjectSchema } from './project/project.schema';
+import { ProjectDBRepository } from './project/project.repository';
 
 @Global()
 @Module({
@@ -27,9 +29,13 @@ import { BusinessDBRepository } from './business/business.repository';
         name: 'Business',
         schema: BusinessSchema
       },
+      {
+        name: 'Project',
+        schema: ProjectSchema
+      }
     ])
   ],
-  providers: [UserDBRepository, BusinessDBRepository],
-  exports: [MongooseModule, UserDBRepository, BusinessDBRepository, ]
+  providers: [ UserDBRepository, BusinessDBRepository, ProjectDBRepository ],
+  exports: [ MongooseModule, UserDBRepository, BusinessDBRepository, ProjectDBRepository ]
 })
 export class DatabaseModule {}

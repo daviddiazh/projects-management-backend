@@ -28,7 +28,7 @@ export class BusinessService implements IBusinessDBRepository {
   }
 
   update(businessId: string, businessName: string): Promise<Business> {
-      return this.businessRepository.update(businessId, businessName)
+    return this.businessRepository.update(businessId, businessName)
   }
 
 }

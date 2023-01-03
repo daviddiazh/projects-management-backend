@@ -1,6 +1,6 @@
-import { InjectModel } from "@nestjs/mongoose";
+import { InjectModel } from '@nestjs/mongoose';
 import { BadRequestException, NotFoundException, ServiceUnavailableException } from '@nestjs/common';
-import { Model } from "mongoose";
+import { Model } from 'mongoose';
 import { UserSpec } from './user.schema';
 import { User } from '../../../entry-points/auth/entities/user.entity';
 import { UserDto } from '../../../../domain/common/user/user.dto';

@@ -3,7 +3,6 @@ import { Document, Schema as SchemaMongoose } from 'mongoose';
 import { ICommentary } from 'src/domain/common/commentary/commentary.interface';
 import { Status } from 'src/domain/common/project/status.enum';
 import { IProject } from '../../../../domain/common/project/project.interface';
-import { CommentarySchema } from '../commentary/commentary.schema';
 
 @Schema({
     toJSON: {
