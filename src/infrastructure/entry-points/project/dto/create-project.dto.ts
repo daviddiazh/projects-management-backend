@@ -13,7 +13,7 @@ export class CreateProjectDto implements IProject {
     @IsMongoId()
     authorId: Schema.Types.ObjectId;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsArray()
     @IsMongoId()
     responsiblesId: Schema.Types.ObjectId[]; //TODO: Check it

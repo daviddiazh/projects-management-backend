@@ -33,7 +33,7 @@ export class ProjectSpec extends Document implements IProject {
 
     @Prop({
         type: Array<SchemaMongoose.Types.ObjectId>,
-        required: true,
+        required: false,
         trim: true,
     })
     responsiblesId: SchemaMongoose.Types.ObjectId[];

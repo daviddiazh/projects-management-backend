@@ -1,4 +1,4 @@
-import { BadRequestException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateProjectDto } from 'src/infrastructure/entry-points/project/dto/create-project.dto';
@@ -21,8 +21,6 @@ export class ProjectDBRepository implements IProjectDBRepository {
     */
     async create(payload: CreateProjectDto): Promise<Project> {
         try {
-            //TODO: Add validations and return erros
-
             const newProject = await new this.projectModel(payload).save();
 
             return newProject;
@@ -52,9 +50,19 @@ export class ProjectDBRepository implements IProjectDBRepository {
      * @param projectId
      * @return a Promise of Project
     */
-    findById(projectId: string): Promise<Project> {
-        //TODO: Make this use case
-        throw new Error('Method not implemented.');
+    async findById(projectId: string): Promise<Project> {
+        try {
+            const project = await this.projectModel.findById(projectId);
+
+            if( !project ) {
+                throw new NotFoundException('Proyecto no encontrado');
+            }
+
+            return project;
+        } catch (error) {
+            console.warn(error);
+            throw new NotFoundException('Proyecto no encontrado');
+        }
     }
 
     /**
@@ -62,9 +70,19 @@ export class ProjectDBRepository implements IProjectDBRepository {
      * @param businessId
      * @return a Promise of Project
     */
-    findByBusinessId(businessId: string): Promise<Project | Project[]> {
-        //TODO: Make this use case
-        throw new Error('Method not implemented.');
+    async findByBusinessId(businessId: string): Promise<Project | Project[]> {
+        try {
+            const projects = await this.projectModel.find({businessId});
+
+            if( !projects ) {
+                throw new NotFoundException('Proyectos no encontrados por el ID del negocio');
+            }
+
+            return projects;
+        } catch (error) {
+            console.warn(error);
+            throw new NotFoundException('Proyectos no encontrados por el ID del negocio');
+        }
     }
 
     /**

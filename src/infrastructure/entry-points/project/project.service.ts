@@ -2,9 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { ProjectDBRepository } from '../../driven-adapters/mongo-adapter/project/project.repository';
+import { IProjectDBRepository } from './project.repository.types';
+import { Project } from './entities/project.entity';
 
 @Injectable()
-export class ProjectService {
+export class ProjectService implements IProjectDBRepository {
 
   constructor(
     private readonly projectRepository: ProjectDBRepository,
@@ -18,15 +20,24 @@ export class ProjectService {
     return this.projectRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} project`;
+  findById(projectId: string): Promise<Project> {
+    return this.projectRepository.findById(projectId);
   }
 
-  update(id: number, updateProjectDto: UpdateProjectDto) {
-    return `This action updates a #${id} project`;
+  findByBusinessId(businessId: string): Promise<Project | Project[]> {
+    return this.projectRepository.findByBusinessId(businessId);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} project`;
+  findByUserId(userId: string): Promise<Project | Project[]> {
+    return this.projectRepository.findByUserId(userId);
   }
+  
+  update(payload: UpdateProjectDto): Promise<Project> {
+    throw new Error('Method not implemented.');
+  }
+  
+  remove(projectId: string): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+
 }
