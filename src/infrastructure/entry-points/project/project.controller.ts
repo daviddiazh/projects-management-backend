@@ -2,8 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
+import { IProjectDBRepository } from './project.repository.types';
 
 @Controller('project')
+// export class ProjectController implements IProjectDBRepository {
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
@@ -23,8 +25,8 @@ export class ProjectController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
-    return this.projectService.update(+id, updateProjectDto);
+  update(@Body() updateProjectDto: UpdateProjectDto) {
+    return this.projectService.update(null, updateProjectDto);
   }
 
   @Delete(':id')

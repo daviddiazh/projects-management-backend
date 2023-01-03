@@ -21,6 +21,8 @@ export class ProjectDBRepository implements IProjectDBRepository {
     */
     async create(payload: CreateProjectDto): Promise<Project> {
         try {
+            //TODO: Add validations and return erros
+
             const newProject = await new this.projectModel(payload).save();
 
             return newProject;
@@ -51,6 +53,7 @@ export class ProjectDBRepository implements IProjectDBRepository {
      * @return a Promise of Project
     */
     findById(projectId: string): Promise<Project> {
+        //TODO: Make this use case
         throw new Error('Method not implemented.');
     }
 
@@ -60,6 +63,7 @@ export class ProjectDBRepository implements IProjectDBRepository {
      * @return a Promise of Project
     */
     findByBusinessId(businessId: string): Promise<Project | Project[]> {
+        //TODO: Make this use case
         throw new Error('Method not implemented.');
     }
 
@@ -69,6 +73,7 @@ export class ProjectDBRepository implements IProjectDBRepository {
      * @return a Promise of Project
     */
     findByUserId(userId: string): Promise<Project | Project[]> {
+        //TODO: Make this use case
         throw new Error('Method not implemented.');
     }
 
@@ -78,6 +83,7 @@ export class ProjectDBRepository implements IProjectDBRepository {
      * @return a Promise of Project
     */
     update(payload: UpdateProjectDto): Promise<Project> {
+        //TODO: Make this use case
         throw new Error('Method not implemented.');
     }
     
@@ -87,6 +93,7 @@ export class ProjectDBRepository implements IProjectDBRepository {
      * @return a Promise of Project
     */
     remove(projectId: string): Promise<void> {
+        //TODO: Make this use case
         throw new Error('Method not implemented.');
     }
 
