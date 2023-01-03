@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
@@ -17,33 +17,37 @@ export class ProjectController implements IProjectDBRepository {
     return this.projectService.create(createProjectDto);
   }
 
+  //TODO: Make a pagination in this endpoint
   @Get('findAll')
   findAll() {
     return this.projectService.findAll();
   }
 
-  @Post('findById')
-  findById(@Body() payload: any): Promise<Project> {
-    const { projectId } = payload;
+  @Get('findById/:projectId')
+  findById(@Param('projectId') projectId: string): Promise<Project> {
     return this.projectService.findById(projectId);
   }
 
-  @Post('findByBusinessId')
-  findByBusinessId(@Body() payload: any): Promise<Project | Project[]> {
-    const { businessId } = payload;
+  //TODO: Make a pagination in this endpoint
+  @Get('findByBusinessId/:businessId')
+  findByBusinessId(@Param('businessId') businessId: string): Promise<Project | Project[]> {
     return this.projectService.findByBusinessId(businessId);
   }
   
-  findByUserId(userId: string): Promise<Project | Project[]> {
-    throw new Error('Method not implemented.');
+  //TODO: Make a pagination in this endpoint
+  @Get('findByUserId/:userId')
+  findByUserId(@Param('userId') userId: string): Promise<Project | Project[]> {
+    return this.projectService.findByUserId(userId);
   }
   
-  update(payload: UpdateProjectDto): Promise<Project> {
-    throw new Error('Method not implemented.');
+  @Put('update')
+  update(@Body() payload: UpdateProjectDto): Promise<Project> {
+    return this.projectService.update(payload);
   }
   
-  remove(projectId: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  @Delete('remove/:projectId')
+  remove(@Param('projectId') projectId: string): Promise<void> {
+    return this.projectService.remove(projectId);
   }
 
 }

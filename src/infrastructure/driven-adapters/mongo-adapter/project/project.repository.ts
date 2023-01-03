@@ -26,7 +26,7 @@ export class ProjectDBRepository implements IProjectDBRepository {
             return newProject;
         } catch (error) {
             console.warn(error);
-            throw new BadRequestException('Ocurrio un error al crear el proyecto.');
+            throw new BadRequestException('Ocurrio un error al crear el proyecto');
         }
     }
 
@@ -41,7 +41,7 @@ export class ProjectDBRepository implements IProjectDBRepository {
             return projects;
         } catch (error) {
             console.warn(error);
-            throw new BadRequestException('Ocurrio un error al obtener los proyecto.');
+            throw new BadRequestException('Ocurrio un error al obtener los proyecto');
         }
     }
 
@@ -75,13 +75,13 @@ export class ProjectDBRepository implements IProjectDBRepository {
             const projects = await this.projectModel.find({businessId});
 
             if( !projects ) {
-                throw new NotFoundException('Proyectos no encontrados por el ID del negocio');
+                throw new NotFoundException('No se encontraron proyectos con el ID del negocio');
             }
 
             return projects;
         } catch (error) {
             console.warn(error);
-            throw new NotFoundException('Proyectos no encontrados por el ID del negocio');
+            throw new NotFoundException('No se encontraron proyectos con el ID del negocio');
         }
     }
 
@@ -90,9 +90,19 @@ export class ProjectDBRepository implements IProjectDBRepository {
      * @param userId
      * @return a Promise of Project
     */
-    findByUserId(userId: string): Promise<Project | Project[]> {
-        //TODO: Make this use case
-        throw new Error('Method not implemented.');
+    async findByUserId(userId: string): Promise<Project | Project[]> {
+        try {
+            const projects = await this.projectModel.find({authorId: userId}).exec();
+
+            if( !projects ) {
+                throw new NotFoundException('No se encontraron proyectos con el ID del usuario');
+            }
+
+            return projects;
+        } catch (error) {
+            console.warn(error);
+            throw new NotFoundException('No se encontraron proyectos con el ID del usuario');
+        }
     }
 
     /**
@@ -100,9 +110,20 @@ export class ProjectDBRepository implements IProjectDBRepository {
      * @param payload
      * @return a Promise of Project
     */
-    update(payload: UpdateProjectDto): Promise<Project> {
-        //TODO: Make this use case
-        throw new Error('Method not implemented.');
+    async update(payload: UpdateProjectDto): Promise<Project> {
+        const { projectId } = payload;
+        try {
+            const project = await this.projectModel.findByIdAndUpdate({ _id: projectId }, payload);
+
+            if( !project ){
+                throw new NotFoundException('No se encontro ningún proyecto con el ID del proyecto');
+            }
+
+            return project;
+        } catch (error) {
+            console.warn(error);
+            throw new NotFoundException(error.message);
+        }
     }
     
     /**
@@ -110,9 +131,19 @@ export class ProjectDBRepository implements IProjectDBRepository {
      * @param projectId
      * @return a Promise of Project
     */
-    remove(projectId: string): Promise<void> {
-        //TODO: Make this use case
-        throw new Error('Method not implemented.');
+    async remove(projectId: string): Promise<void> {
+        try {
+            const project = await this.projectModel.findByIdAndDelete({ _id: projectId });
+
+            if( !project ){
+                throw new NotFoundException('No se encontro ningún proyecto con el ID del proyecto');
+            }
+
+            return;
+        } catch (error) {
+            console.warn(error);
+            throw new NotFoundException(error.message);
+        }
     }
 
 }

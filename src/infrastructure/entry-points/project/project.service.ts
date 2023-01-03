@@ -33,11 +33,11 @@ export class ProjectService implements IProjectDBRepository {
   }
   
   update(payload: UpdateProjectDto): Promise<Project> {
-    throw new Error('Method not implemented.');
+    return this.projectRepository.update(payload);
   }
   
   remove(projectId: string): Promise<void> {
-    throw new Error('Method not implemented.');
+    return this.projectRepository.remove(projectId);
   }
 
 }
