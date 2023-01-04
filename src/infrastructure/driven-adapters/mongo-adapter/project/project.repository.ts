@@ -6,6 +6,7 @@ import { UpdateProjectDto } from 'src/infrastructure/entry-points/project/dto/up
 import { Project } from 'src/infrastructure/entry-points/project/entities/project.entity';
 import { IProjectDBRepository } from '../../../entry-points/project/project.repository.types';
 import { ProjectSpec } from './project.schema';
+import { QueryParamsDto } from '../../../entry-points/common/dto/query-params.dto';
 
 
 export class ProjectDBRepository implements IProjectDBRepository {
@@ -34,9 +35,17 @@ export class ProjectDBRepository implements IProjectDBRepository {
      * Find All Projects
      * @return a Promise of Projects
     */
-    async findAll(): Promise<Project[]> {
+    async findAll(params: QueryParamsDto): Promise<Project[]> {
         try {
-            const projects = await this.projectModel.find().exec();
+            const { limit = 10, offset = 0 } = params;
+
+            const projects = await this.projectModel.find()
+                .limit( limit )
+                .skip( offset )
+                .sort({
+                    createdAt: -1
+                })
+                .select('-__v');
 
             return projects;
         } catch (error) {

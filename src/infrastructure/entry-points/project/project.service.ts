@@ -4,6 +4,7 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 import { ProjectDBRepository } from '../../driven-adapters/mongo-adapter/project/project.repository';
 import { IProjectDBRepository } from './project.repository.types';
 import { Project } from './entities/project.entity';
+import { QueryParamsDto } from '../common/dto/query-params.dto';
 
 @Injectable()
 export class ProjectService implements IProjectDBRepository {
@@ -16,8 +17,8 @@ export class ProjectService implements IProjectDBRepository {
     return this.projectRepository.create(createProjectDto);
   }
 
-  findAll() {
-    return this.projectRepository.findAll();
+  findAll(params: QueryParamsDto) {
+    return this.projectRepository.findAll(params);
   }
 
   findById(projectId: string): Promise<Project> {

@@ -15,7 +15,7 @@ export class CreateProjectDto implements IProject {
 
     @IsOptional()
     @IsArray()
-    @IsMongoId()
+    // @IsMongoId()
     responsiblesId: Schema.Types.ObjectId[]; //TODO: Check it
 
     @IsNotEmpty()

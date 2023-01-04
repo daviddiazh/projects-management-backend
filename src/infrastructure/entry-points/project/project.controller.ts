@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put, Query } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { IProjectDBRepository } from './project.repository.types';
 import { Project } from './entities/project.entity';
+import { QueryParamsDto } from '../common/dto/query-params.dto';
 
 @Controller('project')
 export class ProjectController implements IProjectDBRepository {
@@ -17,10 +18,9 @@ export class ProjectController implements IProjectDBRepository {
     return this.projectService.create(createProjectDto);
   }
 
-  //TODO: Make a pagination in this endpoint
   @Get('findAll')
-  findAll() {
-    return this.projectService.findAll();
+  findAll( @Query() params: QueryParamsDto ) {
+    return this.projectService.findAll(params);
   }
 
   @Get('findById/:projectId')
