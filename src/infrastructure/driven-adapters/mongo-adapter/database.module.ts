@@ -8,6 +8,7 @@ import { BusinessSchema } from './business/business.schema';
 import { BusinessDBRepository } from './business/business.repository';
 import { ProjectSchema } from './project/project.schema';
 import { ProjectDBRepository } from './project/project.repository';
+import { CommentarySchema } from './commentary/commentary.schema';
 
 @Global()
 @Module({
@@ -32,6 +33,10 @@ import { ProjectDBRepository } from './project/project.repository';
       {
         name: 'Project',
         schema: ProjectSchema
+      },
+      {
+        name: 'Commentary',
+        schema: CommentarySchema
       }
     ])
   ],
