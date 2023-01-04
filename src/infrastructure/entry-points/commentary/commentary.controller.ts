@@ -23,8 +23,8 @@ export class CommentaryController {
     return this.commentaryService.update(commentaryId, updateCommentaryDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.commentaryService.remove(id);
+  @Delete('remove/:commentaryId')
+  remove(@Param('commentaryId') commentaryId: string) {
+    return this.commentaryService.remove(commentaryId);
   }
 }

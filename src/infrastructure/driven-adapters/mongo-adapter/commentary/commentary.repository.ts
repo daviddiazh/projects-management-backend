@@ -93,7 +93,7 @@ export class CommentaryDBRepository implements ICommentaryDBRepository  {
      * @return a Commentary of Project
     */
     async update(commentaryId: string, payload: UpdateCommentaryDto): Promise<Commentary> {
-        const { /*commentaryId,*/ commentary: commentaryRequest } = payload;
+        const { commentary: commentaryRequest } = payload;
         try {
             const commentaryDB = await this.commentaryModel.findByIdAndUpdate({ _id: commentaryId }, { commentary: commentaryRequest }, {new: true});
 
@@ -113,8 +113,19 @@ export class CommentaryDBRepository implements ICommentaryDBRepository  {
      * @param projectId
      * @return a Promise of Commentary
     */
-    remove(commentaryId: string): Promise<void> {
-        throw new Error('Method not implemented.');
+    async remove(commentaryId: string): Promise<void> {
+        try {
+            const commentary = await this.commentaryModel.findByIdAndDelete({ _id: commentaryId });
+
+            if( !commentary ){
+                throw new NotFoundException('No se encontro ningún comentario con ese ID');
+            }
+
+            return;
+        } catch (error) {
+            console.warn(error);
+            throw new NotFoundException(error.message);
+        }
     }
 
 }
