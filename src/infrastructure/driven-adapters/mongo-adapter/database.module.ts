@@ -9,6 +9,7 @@ import { BusinessDBRepository } from './business/business.repository';
 import { ProjectSchema } from './project/project.schema';
 import { ProjectDBRepository } from './project/project.repository';
 import { CommentarySchema } from './commentary/commentary.schema';
+import { CommentaryDBRepository } from './commentary/commentary.repository';
 
 @Global()
 @Module({
@@ -40,7 +41,7 @@ import { CommentarySchema } from './commentary/commentary.schema';
       }
     ])
   ],
-  providers: [ UserDBRepository, BusinessDBRepository, ProjectDBRepository ],
-  exports: [ MongooseModule, UserDBRepository, BusinessDBRepository, ProjectDBRepository ]
+  providers: [ UserDBRepository, BusinessDBRepository, ProjectDBRepository, CommentaryDBRepository ],
+  exports: [ MongooseModule, UserDBRepository, BusinessDBRepository, ProjectDBRepository, CommentaryDBRepository ]
 })
 export class DatabaseModule {}

@@ -1,15 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCommentaryDto } from './dto/create-commentary.dto';
 import { UpdateCommentaryDto } from './dto/update-commentary.dto';
+import { CommentaryDBRepository } from '../../driven-adapters/mongo-adapter/commentary/commentary.repository';
+import { QueryParamsDto } from '../common/dto/query-params.dto';
 
 @Injectable()
 export class CommentaryService {
+
+  constructor(
+    private readonly commentaryRepository: CommentaryDBRepository,
+  ){}
+
   create(createCommentaryDto: CreateCommentaryDto) {
-    return 'This action adds a new commentary';
+    return this.commentaryRepository.create(createCommentaryDto);
   }
 
-  findAll() {
-    return `This action returns all commentary`;
+  findAllByProject(projectId: string, params: QueryParamsDto) {
+    return this.commentaryRepository.findAllByProject(projectId, params);
   }
 
   findOne(id: number) {

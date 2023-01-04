@@ -1,20 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { CommentaryService } from './commentary.service';
 import { CreateCommentaryDto } from './dto/create-commentary.dto';
 import { UpdateCommentaryDto } from './dto/update-commentary.dto';
+import { QueryParamsDto } from '../common/dto/query-params.dto';
 
 @Controller('commentary')
 export class CommentaryController {
   constructor(private readonly commentaryService: CommentaryService) {}
 
-  @Post()
+  @Post('create')
   create(@Body() createCommentaryDto: CreateCommentaryDto) {
     return this.commentaryService.create(createCommentaryDto);
   }
 
-  @Get()
-  findAll() {
-    return this.commentaryService.findAll();
+  @Get('findAllByProject/:projectId')
+  findAllByProject(@Param('projectId') projectId: string, @Query() params: QueryParamsDto) {
+    return this.commentaryService.findAllByProject(projectId, params);
   }
 
   @Get(':id')

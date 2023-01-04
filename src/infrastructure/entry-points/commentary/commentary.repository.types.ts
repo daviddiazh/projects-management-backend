@@ -6,7 +6,7 @@ import { UpdateCommentaryDto } from './dto/update-commentary.dto';
 
 export abstract class ICommentaryDBRepository {
     abstract create(payload: CreateCommentaryDto): Promise<Commentary>;
-    abstract findAll(params: QueryParamsDto): Promise<Commentary>;
+    abstract findAllByProject(projectId: string, params: QueryParamsDto,): Promise<Commentary[]>;
     abstract update(payload: UpdateCommentaryDto): Promise<Commentary>;
     abstract remove(commentaryId: string): Promise<void>;
 }
