@@ -92,8 +92,20 @@ export class CommentaryDBRepository implements ICommentaryDBRepository  {
      * @param payload
      * @return a Commentary of Project
     */
-    update(payload: UpdateCommentaryDto): Promise<Commentary> {
-        throw new Error('Method not implemented.');
+    async update(commentaryId: string, payload: UpdateCommentaryDto): Promise<Commentary> {
+        const { /*commentaryId,*/ commentary: commentaryRequest } = payload;
+        try {
+            const commentaryDB = await this.commentaryModel.findByIdAndUpdate({ _id: commentaryId }, { commentary: commentaryRequest }, {new: true});
+
+            if( !commentaryDB ){
+                throw new NotFoundException('No se encontro ningún proyecto con el ID del proyecto');
+            }
+            
+            return commentaryDB;
+        } catch (error) {
+            console.warn(error);
+            throw new NotFoundException(error.message);
+        }
     }
 
     /**

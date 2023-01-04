@@ -3,9 +3,10 @@ import { CreateCommentaryDto } from './dto/create-commentary.dto';
 import { UpdateCommentaryDto } from './dto/update-commentary.dto';
 import { CommentaryDBRepository } from '../../driven-adapters/mongo-adapter/commentary/commentary.repository';
 import { QueryParamsDto } from '../common/dto/query-params.dto';
+import { ICommentaryDBRepository } from './commentary.repository.types';
 
 @Injectable()
-export class CommentaryService {
+export class CommentaryService implements ICommentaryDBRepository {
 
   constructor(
     private readonly commentaryRepository: CommentaryDBRepository,
@@ -19,15 +20,11 @@ export class CommentaryService {
     return this.commentaryRepository.findAllByProject(projectId, params);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} commentary`;
+  update(commentaryId: string, updateCommentaryDto: UpdateCommentaryDto) {
+    return this.commentaryRepository.update(commentaryId, updateCommentaryDto);
   }
 
-  update(id: number, updateCommentaryDto: UpdateCommentaryDto) {
-    return `This action updates a #${id} commentary`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} commentary`;
+  remove(commentaryId: string) {
+    return this.commentaryRepository.remove(commentaryId);
   }
 }

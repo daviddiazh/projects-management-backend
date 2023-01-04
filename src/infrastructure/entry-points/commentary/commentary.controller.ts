@@ -18,18 +18,13 @@ export class CommentaryController {
     return this.commentaryService.findAllByProject(projectId, params);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.commentaryService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCommentaryDto: UpdateCommentaryDto) {
-    return this.commentaryService.update(+id, updateCommentaryDto);
+  @Patch('update/:commentaryId')
+  update(@Param('commentaryId') commentaryId: string, @Body() updateCommentaryDto: UpdateCommentaryDto) {
+    return this.commentaryService.update(commentaryId, updateCommentaryDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.commentaryService.remove(+id);
+    return this.commentaryService.remove(id);
   }
 }
