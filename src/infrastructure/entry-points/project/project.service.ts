@@ -25,12 +25,12 @@ export class ProjectService implements IProjectDBRepository {
     return this.projectRepository.findById(projectId);
   }
 
-  findByBusinessId(businessId: string): Promise<Project | Project[]> {
-    return this.projectRepository.findByBusinessId(businessId);
+  findByBusinessId(businessId: string, params: QueryParamsDto): Promise<Project | Project[]> {
+    return this.projectRepository.findByBusinessId(businessId, params);
   }
 
-  findByUserId(userId: string): Promise<Project | Project[]> {
-    return this.projectRepository.findByUserId(userId);
+  findByUserId(userId: string, params: QueryParamsDto): Promise<Project | Project[]> {
+    return this.projectRepository.findByUserId(userId, params);
   }
   
   update(payload: UpdateProjectDto): Promise<Project> {

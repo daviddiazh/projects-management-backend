@@ -8,8 +8,8 @@ export abstract class IProjectDBRepository {
     abstract create(payload: CreateProjectDto): Promise<Project>
     abstract findAll(params: QueryParamsDto): Promise<Project[]>;
     abstract findById(projectId: string): Promise<Project>;
-    abstract findByBusinessId(businessId: string): Promise<Project[] | Project>;
-    abstract findByUserId(userId: string): Promise<Project[] | Project>;
+    abstract findByBusinessId(businessId: string, params: QueryParamsDto): Promise<Project[] | Project>;
+    abstract findByUserId(userId: string, params: QueryParamsDto): Promise<Project[] | Project>;
     abstract update(payload: UpdateProjectDto): Promise<Project>;
     abstract remove(projectId: string): Promise<void>;
 }

@@ -79,9 +79,17 @@ export class ProjectDBRepository implements IProjectDBRepository {
      * @param businessId
      * @return a Promise of Project
     */
-    async findByBusinessId(businessId: string): Promise<Project | Project[]> {
+    async findByBusinessId(businessId: string, params: QueryParamsDto): Promise<Project | Project[]> {
         try {
-            const projects = await this.projectModel.find({businessId});
+            const { limit = 10, offset = 0 } = params;
+
+            const projects = await this.projectModel.find({businessId})
+                .limit( limit )
+                .skip( offset )
+                .sort({
+                    createdAt: -1
+                })
+                .select('-__v');
 
             if( !projects ) {
                 throw new NotFoundException('No se encontraron proyectos con el ID del negocio');
@@ -99,9 +107,17 @@ export class ProjectDBRepository implements IProjectDBRepository {
      * @param userId
      * @return a Promise of Project
     */
-    async findByUserId(userId: string): Promise<Project | Project[]> {
+    async findByUserId(userId: string, params: QueryParamsDto): Promise<Project | Project[]> {
         try {
-            const projects = await this.projectModel.find({authorId: userId}).exec();
+            const { limit = 10, offset = 0 } = params;
+
+            const projects = await this.projectModel.find({authorId: userId})
+                .limit( limit )
+                .skip( offset )
+                .sort({
+                    createdAt: -1
+                })
+                .select('-__v');
 
             if( !projects ) {
                 throw new NotFoundException('No se encontraron proyectos con el ID del usuario');

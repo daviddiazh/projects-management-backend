@@ -19,7 +19,7 @@ export class ProjectController implements IProjectDBRepository {
   }
 
   @Get('findAll')
-  findAll( @Query() params: QueryParamsDto ) {
+  findAll(@Query() params: QueryParamsDto) {
     return this.projectService.findAll(params);
   }
 
@@ -28,16 +28,14 @@ export class ProjectController implements IProjectDBRepository {
     return this.projectService.findById(projectId);
   }
 
-  //TODO: Make a pagination in this endpoint
   @Get('findByBusinessId/:businessId')
-  findByBusinessId(@Param('businessId') businessId: string): Promise<Project | Project[]> {
-    return this.projectService.findByBusinessId(businessId);
+  findByBusinessId(@Param('businessId') businessId: string, @Query() params: QueryParamsDto): Promise<Project | Project[]> {
+    return this.projectService.findByBusinessId(businessId, params);
   }
   
-  //TODO: Make a pagination in this endpoint
   @Get('findByUserId/:userId')
-  findByUserId(@Param('userId') userId: string): Promise<Project | Project[]> {
-    return this.projectService.findByUserId(userId);
+  findByUserId(@Param('userId') userId: string, @Query() params: QueryParamsDto): Promise<Project | Project[]> {
+    return this.projectService.findByUserId(userId, params);
   }
   
   @Put('update')
