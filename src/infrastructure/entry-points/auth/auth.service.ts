@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException, InternalServerErrorException, HttpException, HttpStatus } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { UserDBRepository } from '../../driven-adapters/mongo-adapter/user/user.repository';
 import { LoginDto, signUpDto } from './dto/auth-dto';
 import { HashService } from '../../driven-adapters/hash-password-adapter/hash-password.service';
-import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
@@ -70,15 +70,12 @@ export class AuthService {
 
             return {
                 user,
-                message: 'token válido',
                 token,
             }
         } catch (error) {
             console.log(error)
-            switch(error.status) { //TODO: Configurarlo en el front y Probarlo
-                case 'TokenExpiredError: jwt expired':
+            switch(error.status) {
                 case 401: 
-                    console.log('entro en el 401')
                     throw error;
                 default:
                     throw new HttpException('Estamos presentando fallas en nuestro servicio.', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -86,33 +83,5 @@ export class AuthService {
         } 
 
     }
-
-    // async checkTokenGQL (token: string) { 
-
-    //     if( !token ) return new ResponseEntity(401, 'Ocurrio un error.', 'Estamos presentando fallas en el servicio.');
-
-    //     try {
-    //         const { id } = this.jwtService.verify(token, {secret: process.env.JWT_SECRET});
-
-    //         const user = await this.auth.findById(id);
-
-    //         return {
-    //             user,
-    //             token,
-    //         }
-    //     } catch (error) {
-    //         console.log(error)
-    //         return new ResponseEntity(401, 'Expiró la sesión', 'La sesión finalizo, por favor ingresa de nuevo.');
-    //         // throw error;
-
-    //         // switch(error.status) { //TODO: Configurarlo en el front y Probarlo
-    //         //     case 401: 
-    //         //         console.log('entro en el 401')
-    //         //         throw error;
-    //         //     default:
-    //         //         throw new HttpException('Estamos presentando fallas en nuestro servicio.', HttpStatus.INTERNAL_SERVER_ERROR);
-    //         // }
-    //     }
-    // }
   
 }

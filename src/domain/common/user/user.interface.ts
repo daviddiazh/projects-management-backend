@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { Schema } from 'mongoose';
 import { Role } from './user-role.enum';
 
 export interface IUser {
@@ -11,5 +11,4 @@ export interface IUser {
     role: Role;
     profilePicture?: string;
     businessId: Schema.Types.ObjectId
-    // businessName: string
 }

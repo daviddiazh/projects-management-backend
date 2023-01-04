@@ -1,6 +1,6 @@
 import { Commentary } from './entities/commentary.entity';
-import { CreateCommentaryDto } from './dto/create-commentary.dto';
 import { QueryParamsDto } from '../common/dto/query-params.dto';
+import { CreateCommentaryDto } from './dto/create-commentary.dto';
 import { UpdateCommentaryDto } from './dto/update-commentary.dto';
 
 

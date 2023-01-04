@@ -1,7 +1,7 @@
+import { IsString, IsMongoId, IsEmail, IsNotEmpty, IsOptional, IsNumber } from 'class-validator';
 import { Schema } from 'mongoose';
 import { IUser } from './user.interface';
 import { Role } from './user-role.enum';
-import { IsString, IsMongoId, IsEmail, IsNotEmpty, IsOptional, IsNumber } from 'class-validator';
 
 export class UserDto implements IUser {
 
@@ -36,7 +36,4 @@ export class UserDto implements IUser {
     @IsMongoId()
     businessId: Schema.Types.ObjectId
 
-    // @IsString()
-    // @IsNotEmpty()
-    // businessName: string
 }

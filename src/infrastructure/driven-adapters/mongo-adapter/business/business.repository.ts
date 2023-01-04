@@ -1,5 +1,5 @@
-import { InjectModel } from "@nestjs/mongoose";
 import { ServiceUnavailableException, BadRequestException, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { BusinessSpec } from './business.schema';
 import { Business } from '../../../entry-points/business/entities/business.entity';

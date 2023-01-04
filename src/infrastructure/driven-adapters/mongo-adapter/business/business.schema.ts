@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Schema as SchemaMongoose } from 'mongoose';
+import { Document, } from 'mongoose';
 import { IBusiness } from '../../../../domain/common/business/business.interface';
 
 @Schema({
@@ -15,12 +15,6 @@ import { IBusiness } from '../../../../domain/common/business/business.interface
 })
 
 export class BusinessSpec extends Document implements IBusiness {
-
-//     @Prop({
-//         type: SchemaMongoose.Types.ObjectId,
-//         trim: true,
-//     })
-//    businessId: SchemaMongoose.Types.ObjectId;
 
    @Prop({
         type: String,

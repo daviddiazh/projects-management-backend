@@ -5,7 +5,7 @@ import { Status } from "./status.enum";
 export interface IProject {
     businessId: Schema.Types.ObjectId;
     authorId: Schema.Types.ObjectId;
-    responsiblesId: Schema.Types.ObjectId[]; //TODO: Check it
+    responsiblesId: Schema.Types.ObjectId[];
     title: string;
     description: string;
     acceptanceCriteria?: string;

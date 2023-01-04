@@ -6,7 +6,9 @@ import { Business } from './entities/business.entity';
 
 @Controller('/business')
 export class BusinessController implements IBusinessDBRepository {
-  constructor(private readonly businessService: BusinessService) {}
+  constructor(
+    private readonly businessService: BusinessService
+  ) {}
 
   @Post('/create')
   create(@Body() createBusinessDto: CreateBusinessDto) {

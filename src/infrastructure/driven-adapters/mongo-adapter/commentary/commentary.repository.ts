@@ -1,3 +1,4 @@
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateCommentaryDto } from 'src/infrastructure/entry-points/commentary/dto/create-commentary.dto';
@@ -6,9 +7,7 @@ import { Commentary } from 'src/infrastructure/entry-points/commentary/entities/
 import { QueryParamsDto } from 'src/infrastructure/entry-points/common/dto/query-params.dto';
 import { ICommentaryDBRepository } from '../../../entry-points/commentary/commentary.repository.types';
 import { CommentarySpec } from './commentary.schema';
-import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { UserSpec } from '../user/user.schema';
-import { User } from 'src/infrastructure/entry-points/auth/entities/user.entity';
 
 export class CommentaryDBRepository implements ICommentaryDBRepository  {
 

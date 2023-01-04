@@ -1,5 +1,5 @@
-import { InjectModel } from '@nestjs/mongoose';
 import { BadRequestException, NotFoundException, ServiceUnavailableException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserSpec } from './user.schema';
 import { User } from '../../../entry-points/auth/entities/user.entity';
@@ -38,7 +38,7 @@ export class UserDBRepository implements IUserDBRepository {
             console.log('Down Service in Create method on Repository - ADAPTER');
             throw new ServiceUnavailableException(`Down Service in create method - user: ${error.message}`);
         }
-   }
+    }
 
     /**
      * Find a User
@@ -62,7 +62,7 @@ export class UserDBRepository implements IUserDBRepository {
             console.log('Down Service in FindById method on Repository - ADAPTER');
             throw new ServiceUnavailableException(`Down Service in find by id method: ${error.message}`);
         }
-   }
+    }
 
    /**
      * Find a User
@@ -89,7 +89,7 @@ export class UserDBRepository implements IUserDBRepository {
             console.log('Down Service in FindByName method on Repository - ADAPTER');
             throw new ServiceUnavailableException(`Down Service in findByName method: ${error.message}`);
         }
-   }
+    }
 
    /**
      * Find a User
@@ -109,7 +109,7 @@ export class UserDBRepository implements IUserDBRepository {
             console.log('Down Service in FindByName method on Repository - ADAPTER');
             throw new ServiceUnavailableException(`Down Service in findByEmail method: ${error.message}`);
         }
-   }
+    }
 
    /**
      * Find a User
@@ -134,7 +134,7 @@ export class UserDBRepository implements IUserDBRepository {
             console.log('Down Service in FINDALL method on Repository - ADAPTER');
             throw new ServiceUnavailableException(`Down Service in findAll method: ${error.message}`);
         }
-   }
+    }
 
    /**
      * Update a User's role
@@ -158,7 +158,7 @@ export class UserDBRepository implements IUserDBRepository {
             console.log('Down Service in UPDATEROLE method on Repository - ADAPTER');
             throw new ServiceUnavailableException(`Down Service in updateRole method: ${error.message}`);
         }
-   }
+    }
 
    /**
      * Delete a User
@@ -178,6 +178,6 @@ export class UserDBRepository implements IUserDBRepository {
             console.log('Down Service in DELETE method on Repository - ADAPTER');
             throw new ServiceUnavailableException(`Down Service in delete method: ${error.message}`);
         }
-   }
+    }
 
 }

@@ -6,7 +6,10 @@ import { QueryParamsDto } from '../common/dto/query-params.dto';
 
 @Controller('commentary')
 export class CommentaryController {
-  constructor(private readonly commentaryService: CommentaryService) {}
+
+  constructor(
+    private readonly commentaryService: CommentaryService
+  ){}
 
   @Post('create')
   create(@Body() createCommentaryDto: CreateCommentaryDto) {
@@ -27,4 +30,5 @@ export class CommentaryController {
   remove(@Param('commentaryId') commentaryId: string) {
     return this.commentaryService.remove(commentaryId);
   }
+
 }

@@ -1,4 +1,4 @@
-import { registerAs } from '@nestjs/config'
+import { registerAs } from '@nestjs/config';
 
 export default registerAs('config', () => {
     return {
@@ -10,4 +10,4 @@ export default registerAs('config', () => {
             jwt_secret_key: process.env.JWT_SECRET
         }
     }
-})
+});
