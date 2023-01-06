@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UserDBRepository } from '../../driven-adapters/mongo-adapter/user/user.repository';
 import { LoginDto, signUpDto } from './dto/auth-dto';
 import { HashService } from '../../driven-adapters/hash-password-adapter/hash-password.service';
+import { BusinessService } from '../business/business.service';
 
 @Injectable()
 export class AuthService {
@@ -10,7 +11,9 @@ export class AuthService {
     constructor(
         private readonly auth: UserDBRepository,
         private readonly hashService: HashService,
-        private readonly jwtService: JwtService
+        private readonly jwtService: JwtService,
+
+        private readonly businessService: BusinessService,
     ){}
 
     async signUp (payload: signUpDto): Promise<object | any> {
@@ -18,6 +21,14 @@ export class AuthService {
             const { password, ...userData } = payload;
             
             const passwordEncrypted = await this.hashService.hash(password);
+
+            const { businessId } = userData;
+
+            const business = await this.businessService.findById( businessId );
+
+            if( !business ) {
+                throw new UnauthorizedException('No se encontro ningún cliente por ese ID, por favor comuniquese con el administrador.');
+            }
 
             const user = await this.auth.create({
                 ...userData,
@@ -29,8 +40,8 @@ export class AuthService {
                 token: this.jwtService.sign({id: (await user)._id + ''})
             };
         } catch (error) {
-            console.log('Down Service - signUp Authentication');
-            throw new InternalServerErrorException('Down Service - signUp Authentication')
+            // console.log(error)
+            throw new UnauthorizedException(error.response.message)
         }
     }
 
@@ -44,7 +55,7 @@ export class AuthService {
             const isMatchPassword = await this.hashService.compare(passwordByRequest, password);
 
             if( !isMatchPassword ){
-                throw new UnauthorizedException('Credentials are not valid');
+                throw new UnauthorizedException('Credenciales incorrectas.');
             }
 
             return {
@@ -52,8 +63,7 @@ export class AuthService {
                 token: this.jwtService.sign({id: _id + ''})
             };
         } catch (error) {
-            console.log('Down Service - login Authentication');
-            throw new InternalServerErrorException('Down Service - login Authentication');
+            throw new UnauthorizedException('Credenciales incorrectas.' );
         }
     }
 

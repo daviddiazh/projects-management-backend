@@ -1,4 +1,4 @@
-import { BadRequestException, NotFoundException, ServiceUnavailableException } from '@nestjs/common';
+import { BadRequestException, NotFoundException, ServiceUnavailableException, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserSpec } from './user.schema';
@@ -26,7 +26,7 @@ export class UserDBRepository implements IUserDBRepository {
             const createdUser = await new this.userModel(newPayload).save();
             
             if( !createdUser ){
-                throw new BadRequestException('Error creating an User - Repository (USER MODULE)');
+                throw new BadRequestException('Registro incorrecto, por favor comuniquese con el administrador.');
             }
 
             let newObjectUser = createdUser;
@@ -35,8 +35,7 @@ export class UserDBRepository implements IUserDBRepository {
 
             return newObjectUser;
         } catch (error) {
-            console.log('Down Service in Create method on Repository - ADAPTER');
-            throw new ServiceUnavailableException(`Down Service in create method - user: ${error.message}`);
+            throw new UnauthorizedException('Registro incorrecto, por favor comuniquese con el administrador.');
         }
     }
 

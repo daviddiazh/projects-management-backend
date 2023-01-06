@@ -3,6 +3,7 @@ import { BusinessService } from './business.service';
 import { CreateBusinessDto } from './dto/create-business.dto';
 import { IBusinessDBRepository } from './business.repository.types';
 import { Business } from './entities/business.entity';
+import { Schema } from 'mongoose';
 
 @Controller('/business')
 export class BusinessController implements IBusinessDBRepository {
@@ -16,7 +17,7 @@ export class BusinessController implements IBusinessDBRepository {
   }
 
   @Get('/findById/:_id')
-  findById(@Param('_id') _id: string) {
+  findById(@Param('_id') _id: Schema.Types.ObjectId) {
     return this.businessService.findById(_id);
   }
 

@@ -3,6 +3,7 @@ import { CreateBusinessDto } from './dto/create-business.dto';
 import { IBusinessDBRepository } from './business.repository.types';
 import { BusinessDBRepository } from '../../driven-adapters/mongo-adapter/business/business.repository';
 import { Business } from './entities/business.entity';
+import { Schema } from 'mongoose';
 
 @Injectable()
 export class BusinessService implements IBusinessDBRepository {
@@ -15,7 +16,7 @@ export class BusinessService implements IBusinessDBRepository {
     return this.businessRepository.create(createBusinessDto);
   }
 
-  findById(id: string) {
+  findById(id: Schema.Types.ObjectId) {
     return this.businessRepository.findById(id);
   }
 

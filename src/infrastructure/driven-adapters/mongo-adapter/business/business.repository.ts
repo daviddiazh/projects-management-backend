@@ -1,6 +1,6 @@
 import { ServiceUnavailableException, BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Schema } from 'mongoose';
 import { BusinessSpec } from './business.schema';
 import { Business } from '../../../entry-points/business/entities/business.entity';
 import { BusinessDto } from '../../../../domain/common/business/business.dto';
@@ -38,19 +38,18 @@ export class BusinessDBRepository implements IBusinessDBRepository {
      * @param id
      * @return business found - The found business
     */
-   async findById (_id: string): Promise<Business> {
+   async findById (_id: Schema.Types.ObjectId): Promise<Business> {
         try {
-            // const business = await this.businessModel.findById(id);
             const business = await this.businessModel.findById(_id);
 
             if ( !business ) {
-                throw new NotFoundException('Not found business by id - Repository');
+                throw new NotFoundException('No se encontro ningún cliente por ese ID, por favor comuniquese con el administrador.');
             }
 
             return business;
         } catch (error) {
-            console.log('Down Service in Find method on Repository - ADAPTER');
-            throw new ServiceUnavailableException(`Down Service in find by id method - business: ${error.message}`)
+            // throw new ServiceUnavailableException(`Down Service in find by id method - business: ${error.message}`)
+            throw new NotFoundException('No se encontro ningún cliente por ese ID, por favor comuniquese con el administrador.')
         }
    }
 

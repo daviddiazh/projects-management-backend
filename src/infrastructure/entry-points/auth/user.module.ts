@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
 import { UserService } from './user.service';
 import { AuthController } from './auth.controller';
 import { UserController } from './user.controller';
+import { BusinessService } from '../business/business.service';
 
 
 
@@ -32,7 +33,7 @@ import { UserController } from './user.controller';
       }
     }), 
   ],
-  providers: [AuthService, UserService, JwtStrategy ],
+  providers: [AuthService, UserService, JwtStrategy, BusinessService ],
   controllers: [AuthController, UserController, ],
   exports: [JwtStrategy, PassportModule, JwtModule]
 })
