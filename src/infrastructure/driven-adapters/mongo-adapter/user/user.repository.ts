@@ -35,6 +35,7 @@ export class UserDBRepository implements IUserDBRepository {
 
             return newObjectUser;
         } catch (error) {
+            // console.log(error)
             throw new UnauthorizedException('Registro incorrecto, por favor comuniquese con el administrador.');
         }
     }
