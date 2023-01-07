@@ -15,9 +15,8 @@ export class UserController implements IUserDBRepository {
     return this.userService.create(createUserDto);
   }
 
-  @Post('/findById')
-  findById(@Body() payload: any){
-    const { id } = payload;
+  @Get('/findById/:id')
+  findById(@Param('id') id: string){    
     return this.userService.findById(id);
   }
 

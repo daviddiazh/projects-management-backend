@@ -71,7 +71,7 @@ export class AuthService {
 
         const token = req.headers['x-token'];
 
-        if( !token ) return new UnauthorizedException('Su token ha expirado o no hay token en la petición');
+        if( !token ) return new UnauthorizedException('Su token ha expirado o no hay token dentro de la petición.');
 
         try {
             const { id } = this.jwtService.verify(token, {secret: process.env.JWT_SECRET});
@@ -83,13 +83,7 @@ export class AuthService {
                 token,
             }
         } catch (error) {
-            console.log(error)
-            switch(error.status) {
-                case 401: 
-                    throw error;
-                default:
-                    throw new HttpException('Estamos presentando fallas en nuestro servicio.', HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            throw new UnauthorizedException("Se ha expirado tu sesión, por favor ingresa nuevamente.");
         } 
 
     }
