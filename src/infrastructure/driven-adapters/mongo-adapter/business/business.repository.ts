@@ -43,13 +43,12 @@ export class BusinessDBRepository implements IBusinessDBRepository {
             const business = await this.businessModel.findById(_id);
 
             if ( !business ) {
-                throw new NotFoundException('No se encontro ningún cliente por ese ID, por favor comuniquese con el administrador.');
+                throw new NotFoundException('No se encontro ninguna empresa por ese ID.');
             }
 
             return business;
         } catch (error) {
-            // throw new ServiceUnavailableException(`Down Service in find by id method - business: ${error.message}`)
-            throw new NotFoundException('No se encontro ningún cliente por ese ID, por favor comuniquese con el administrador.')
+            throw new NotFoundException('No se encontro ninguna empresa por ese ID.')
         }
    }
 
