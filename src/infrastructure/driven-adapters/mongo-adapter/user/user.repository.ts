@@ -23,7 +23,7 @@ export class UserDBRepository implements IUserDBRepository {
             let {email, ...userData} = payload;
             email = email.toLowerCase().trim();
             const newPayload = {email, ...userData}
-            const createdUser = await new this.userModel(newPayload).save();
+            const createdUser: any = await (await new this.userModel(newPayload).save()).populate('businessId');
             
             if( !createdUser ){
                 throw new BadRequestException('Registro incorrecto, por favor comuniquese con el administrador.');
@@ -32,6 +32,17 @@ export class UserDBRepository implements IUserDBRepository {
             let newObjectUser = createdUser;
             newObjectUser = newObjectUser.toObject();
             delete newObjectUser.password;
+            delete newObjectUser.__v;
+            delete newObjectUser.updatedAt;
+
+            const { businessId } = newObjectUser;
+
+            newObjectUser.business = {
+                businessName: businessId.businessName,
+                businessId: businessId._id,
+                createdAt: businessId.createdAt
+            };
+            delete newObjectUser.businessId;
 
             return newObjectUser;
         } catch (error) {
@@ -45,22 +56,32 @@ export class UserDBRepository implements IUserDBRepository {
      * @body id
      * @return user found - The user found
     */
-   async findById (id: string): Promise<User> {
+   async findById (id: string): Promise<any> {
         try {
-            const user = await this.userModel.findById({_id: id}).populate('businessId');
+            const user: any = await this.userModel.findById({_id: id}).populate('businessId');
 
             if ( !user ) {
-                throw new NotFoundException('Not found user by id - Repository (USER MODULE)');
+                throw new NotFoundException('No se encontro ningún usuario por ese ID.');
             }
 
             let newObjectUser = user;
             newObjectUser = newObjectUser.toObject();
             delete newObjectUser.password;
+            delete newObjectUser.__v;
+            delete newObjectUser.updatedAt;
+
+            const { businessId } = newObjectUser;
+
+            newObjectUser.business = {
+                businessName: businessId.businessName,
+                businessId: businessId._id,
+                createdAt: businessId.createdAt
+            };
+            delete newObjectUser.businessId;
 
             return newObjectUser;
         } catch (error) {
-            console.log('Down Service in FindById method on Repository - ADAPTER');
-            throw new ServiceUnavailableException(`Down Service in find by id method: ${error.message}`);
+            throw new NotFoundException('No se encontro ningún usuario por ese ID.');
         }
     }
 
@@ -74,20 +95,31 @@ export class UserDBRepository implements IUserDBRepository {
             const users: any = await this.userModel.find({name, lastName}).populate('businessId');
 
             if ( !users ) {
-                throw new NotFoundException('Not found user by name - Repository (USER MODULE)');
+                throw new NotFoundException('No se encontro ningún usuario por ese nombre.');
             }
 
             let newObjectUsers = users;
             const returnUsers = newObjectUsers.map(user => {
                 const { _doc: { password, ...userData } } = user;
+
+                delete userData.__v;
+                delete userData.updatedAt;
+
+                const { businessId } = userData;
+
+                userData.business = {
+                    businessName: businessId.businessName,
+                    businessId: businessId._id,
+                    createdAt: businessId.createdAt
+                };
+                delete userData.businessId;
                 
                 return userData
             });
 
             return returnUsers;
         } catch (error) {
-            console.log('Down Service in FindByName method on Repository - ADAPTER');
-            throw new ServiceUnavailableException(`Down Service in findByName method: ${error.message}`);
+            throw new NotFoundException('No se encontro ningún usuario por ese nombre.');
         }
     }
 
@@ -98,16 +130,31 @@ export class UserDBRepository implements IUserDBRepository {
     */
     async findByEmail (email: string): Promise<User> {
         try {
-            const user: User = await this.userModel.findOne({email}).populate('businessId');
+            email = email.toLowerCase().trim();
+            const user: any = await this.userModel.findOne({email}).populate('businessId');
 
             if ( !user ) {
-                throw new NotFoundException('Not found user by email - Repository (USER MODULE)');
+                throw new NotFoundException('No se encontro ningún usuario por ese correo electrónico.');
             }
 
-            return user;
+            let newObjectUser = user;
+            newObjectUser = newObjectUser.toObject();
+            // delete newObjectUser.password;
+            delete newObjectUser.__v;
+            delete newObjectUser.updatedAt;
+
+            const { businessId } = newObjectUser;
+
+            newObjectUser.business = {
+                businessName: businessId.businessName,
+                businessId: businessId._id,
+                createdAt: businessId.createdAt
+            };
+            delete newObjectUser.businessId;
+
+            return newObjectUser;
         } catch (error) {
-            console.log('Down Service in FindByName method on Repository - ADAPTER');
-            throw new ServiceUnavailableException(`Down Service in findByEmail method: ${error.message}`);
+            throw new NotFoundException('No se encontro ningún usuario por ese correo electrónico.');
         }
     }
 
@@ -122,6 +169,7 @@ export class UserDBRepository implements IUserDBRepository {
             if ( !users ) {
                 throw new Error('Not found users - Repository (USER MODULE)');
             }
+
             let newObjectUsers = users;
             const returnUsers = newObjectUsers.map(user => {
                 const { _doc: { password, ...userData } } = user;
@@ -143,20 +191,30 @@ export class UserDBRepository implements IUserDBRepository {
     */
     async updateRole (id: string, role: string): Promise<User> {
         try {
-            const user = await this.userModel.findOneAndUpdate({id, role});
+            const user: any = await this.userModel.findByIdAndUpdate({_id: id, role}).populate('businessId');
 
             if ( !user ) {
-                throw new NotFoundException('Not found user - Repository (USER MODULE)');
+                throw new NotFoundException('No se encontro ningún usuario por ese ID.');
             }
 
             let newObjectUser = user;
             newObjectUser = newObjectUser.toObject();
             delete newObjectUser.password;
 
-            return user;
+            const { businessId } = newObjectUser;
+
+            newObjectUser.business = {
+                businessName: businessId.businessName,
+                businessId: businessId._id,
+                createdAt: businessId.createdAt
+            };
+            delete newObjectUser.businessId;
+            delete newObjectUser.__v;
+            delete newObjectUser.updatedAt;
+            
+            return newObjectUser;
         } catch (error) {
-            console.log('Down Service in UPDATEROLE method on Repository - ADAPTER');
-            throw new ServiceUnavailableException(`Down Service in updateRole method: ${error.message}`);
+            throw new NotFoundException('No se encontro ningún usuario por ese ID.');
         }
     }
 
@@ -170,13 +228,12 @@ export class UserDBRepository implements IUserDBRepository {
             const user = await this.userModel.findByIdAndDelete(id);
 
             if ( !user ) {
-                throw new NotFoundException('Not found user - Repository (USER MODULE)');
+                throw new NotFoundException('No se encontro ningún usuario por ese ID.');
             }
 
             return;
         } catch (error) {
-            console.log('Down Service in DELETE method on Repository - ADAPTER');
-            throw new ServiceUnavailableException(`Down Service in delete method: ${error.message}`);
+            throw new NotFoundException('No se encontro ningún usuario por ese ID.');
         }
     }
 

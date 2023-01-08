@@ -36,7 +36,7 @@ export class AuthService {
             });
 
             return {
-                user: { ...userData, _id: (await user)._id, role: (await user).role },
+                user,
                 token: this.jwtService.sign({id: (await user)._id + ''})
             };
         } catch (error) {
@@ -45,25 +45,25 @@ export class AuthService {
         }
     }
 
-    async login (payload: LoginDto): Promise<object | any> {
+    async login (payload: LoginDto): Promise<object | any> { 
         try {
             const { password: passwordByRequest, email: emailByRequest } = payload;
 
-            const user = await this.auth.findByEmail(emailByRequest);
-            const { name, lastName, email, password, _id, phone } = user;
+            const user: any = await this.auth.findByEmail(emailByRequest);
+            const { password, ...restDataUser } = user;
 
             const isMatchPassword = await this.hashService.compare(passwordByRequest, password);
 
             if( !isMatchPassword ){
                 throw new UnauthorizedException('Credenciales incorrectas.');
-            }
+            } 
 
             return {
-                user: {name, lastName, email, _id: (await user)._id, phone, role: (await user).role},
-                token: this.jwtService.sign({id: _id + ''})
+                user: restDataUser,
+                token: this.jwtService.sign({id: restDataUser._id + ''})
             };
         } catch (error) {
-            throw new UnauthorizedException('Credenciales incorrectas.' );
+            throw new UnauthorizedException('Credenciales incorrectas.');
         }
     }
 

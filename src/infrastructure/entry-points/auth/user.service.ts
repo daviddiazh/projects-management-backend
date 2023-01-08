@@ -32,7 +32,7 @@ export class UserService implements IUserDBRepository {
     }
 
     updateRole(id: string, role: string): Promise<User> {
-        return this.updateRole(id, role);
+        return this.user.updateRole(id, role);
     }
 
     delete(id: string): Promise<void> {
