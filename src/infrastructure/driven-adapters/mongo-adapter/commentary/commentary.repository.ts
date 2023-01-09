@@ -53,8 +53,7 @@ export class CommentaryDBRepository implements ICommentaryDBRepository  {
                 const user = await this.userModel.findById({_id: commentary.authorId});
 
                 const { 
-                    name, 
-                    lastName, 
+                    fullName,
                     email, 
                     profilePicture 
                 } = user;
@@ -67,7 +66,7 @@ export class CommentaryDBRepository implements ICommentaryDBRepository  {
 
                 return {
                     user: {
-                        fullName: `${name} ${lastName}`, 
+                        fullName, 
                         email, 
                         profilePicture
                     },

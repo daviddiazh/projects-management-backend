@@ -7,11 +7,7 @@ import { Role } from '../../../../domain/common/user/user-role.enum';
 export class CreateUserDto implements IUser {
     @IsString()
     @IsNotEmpty()
-    name: string;
-
-    @IsString()
-    @IsNotEmpty()
-    lastName: string;
+    fullName: string;
 
     @IsNumber()
     @IsOptional()

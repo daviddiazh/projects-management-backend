@@ -7,11 +7,7 @@ export class UserDto implements IUser {
 
     @IsString()
     @IsNotEmpty()
-    name: string;
-
-    @IsString()
-    @IsNotEmpty()
-    lastName: string;
+    fullName: string;
 
     @IsNumber()
     @IsOptional()

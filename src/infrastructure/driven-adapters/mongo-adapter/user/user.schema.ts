@@ -22,14 +22,7 @@ export class UserSpec extends Document implements IUser {
         required: true,
         trim: true,
     })
-    name: string;
-
-   @Prop({
-        type: String,
-        required: true,
-        trim: true,
-    })
-   lastName: string;
+    fullName: string;
    
    @Prop({
         type: Number,

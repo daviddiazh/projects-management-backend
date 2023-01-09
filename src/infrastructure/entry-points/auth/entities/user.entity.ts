@@ -4,8 +4,7 @@ import { Role } from 'src/domain/common/user/user-role.enum';
 
 export class User implements IUser{
     _id?: Schema.Types.ObjectId;
-    name: string;
-    lastName: string;
+    fullName: string;
     phone?: number;
     email: string;
     password?: string;
