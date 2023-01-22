@@ -27,7 +27,7 @@ import { BusinessService } from '../business/business.service';
         return {
           secret: configService.get('JWT_SECRET') || '',
           signOptions: {
-            expiresIn: '4h'
+            expiresIn: '1m'
           }
         }
       }

@@ -38,5 +38,5 @@ export class UserService implements IUserDBRepository {
     delete(id: string): Promise<void> {
         return this.user.delete(id);
     }
-  
+
 }

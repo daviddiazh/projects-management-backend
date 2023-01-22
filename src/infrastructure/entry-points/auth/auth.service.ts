@@ -55,7 +55,7 @@ export class AuthService {
             const isMatchPassword = await this.hashService.compare(passwordByRequest, password);
 
             if( !isMatchPassword ){
-                throw new UnauthorizedException('Credenciales incorrectas.');
+                throw new UnauthorizedException('Credenciales incorrectas, por favor verifiquelas y vuelva a intentarlo.');
             } 
 
             return {
@@ -63,7 +63,7 @@ export class AuthService {
                 token: this.jwtService.sign({id: restDataUser._id + ''})
             };
         } catch (error) {
-            throw new UnauthorizedException('Credenciales incorrectas.');
+            throw new UnauthorizedException('Credenciales incorrectas, por favor verifiquelas y vuelva a intentarlo.');
         }
     }
 
@@ -71,7 +71,8 @@ export class AuthService {
 
         const token = req.headers['x-token'];
 
-        if( !token ) return new UnauthorizedException('Su token ha expirado o no hay token dentro de la petición.');
+        // if( !token ) return new UnauthorizedException('Su token ha expirado o no hay token dentro de la petición.');
+        if ( !token ) return;
 
         try {
             const { id } = this.jwtService.verify(token, {secret: process.env.JWT_SECRET});
@@ -83,7 +84,7 @@ export class AuthService {
                 token,
             }
         } catch (error) {
-            throw new UnauthorizedException("Se ha expirado tu sesión, por favor ingresa nuevamente.");
+            throw new UnauthorizedException("Se ha expirado tu sesión, por favor inicia sesión nuevamente.");
         } 
 
     }
