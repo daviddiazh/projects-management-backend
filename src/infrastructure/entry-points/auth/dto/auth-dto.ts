@@ -5,7 +5,9 @@ import { ILogin } from '../../../../domain/common/user/auth.interface';
 
 export class LoginDto implements ILogin {
 
-    @IsEmail()
+    @IsEmail({}, {
+        message: 'Ese no parece ser un email válido, por favor ingrese uno válido.'
+    })
     @IsNotEmpty()
     email: string;
 
