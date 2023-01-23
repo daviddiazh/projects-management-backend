@@ -184,6 +184,32 @@ export class UserDBRepository implements IUserDBRepository {
         }
     }
 
+    /**
+     * Find a User
+     * @return users found - The users found
+     */
+   async findAllByRole (role:string): Promise<User[]> {
+        try {
+            const users: any = await this.userModel.find({role}).populate('businessId');
+
+            if ( !users ) {
+                throw new Error('Not found users - Repository (USER MODULE)');
+            }
+
+            let newObjectUsers = users;
+            const returnUsers = newObjectUsers.map(user => {
+                const { _doc: { password, ...userData } } = user;
+
+                return userData
+            });
+
+            return returnUsers;
+        } catch (error) {
+            console.log('Down Service in FINDALL method on Repository - ADAPTER');
+            throw new ServiceUnavailableException(`Down Service in findAll method: ${error.message}`);
+        }
+   }
+
    /**
      * Update a User's role
      * @params id, role

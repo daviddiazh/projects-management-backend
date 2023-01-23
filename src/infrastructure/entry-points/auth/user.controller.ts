@@ -37,6 +37,11 @@ export class UserController implements IUserDBRepository {
     return this.userService.findAll();
   }
 
+  @Get('/findAllByRole/:role')
+  findAllByRole(@Param('role') role: string) {
+    return this.userService.findAllByRole(role); //TODO: Optimizar el servicio
+  }
+
   @Put('/updateRole/:id')
   updateRole(@Param('id') id: string, @Body() role: string) {
     return this.userService.updateRole(id, role);
