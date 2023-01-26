@@ -131,6 +131,34 @@ export class ProjectDBRepository implements IProjectDBRepository {
     }
 
     /**
+     * Find Project By Responsibles Id
+     * @param responsibleId
+     * @return a Promise of Project
+     */
+    async findByResponsibleId(responsibleId: string, params: QueryParamsDto): Promise<Project | Project[]> {
+        try {
+            const { limit = 10, offset = 0 } = params;
+
+            const projects = await this.projectModel.find({responsiblesId: responsibleId})
+              .limit( limit )
+              .skip( offset )
+              .sort({
+                  createdAt: -1
+              })
+              .select('-__v');
+
+            if( !projects ) {
+                throw new NotFoundException('No se encontraron proyectos con el ID del usuario.');
+            }
+
+            return projects;
+        } catch (error) {
+            console.warn(error);
+            throw new NotFoundException('No se encontraron proyectos con el ID del usuario.');
+        }
+    }
+
+    /**
      * Update Project
      * @param payload
      * @return a Promise of Project

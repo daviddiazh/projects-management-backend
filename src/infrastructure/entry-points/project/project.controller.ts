@@ -37,6 +37,11 @@ export class ProjectController implements IProjectDBRepository {
   findByUserId(@Param('userId') userId: string, @Query() params: QueryParamsDto): Promise<Project | Project[]> {
     return this.projectService.findByUserId(userId, params);
   }
+
+  @Get('findByResponsibleId/:responsibleId')
+  findByResponsibleId(@Param('responsibleId') responsibleId: string, @Query() params: QueryParamsDto): Promise<Project | Project[]> {
+    return this.projectService.findByResponsibleId(responsibleId, params);
+  }
   
   @Put('update')
   update(@Body() payload: UpdateProjectDto): Promise<Project> {

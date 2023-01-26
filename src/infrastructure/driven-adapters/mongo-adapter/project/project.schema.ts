@@ -54,7 +54,7 @@ export class ProjectSpec extends Document implements IProject {
 
     @Prop({
         type: String,
-        required: true,
+        required: false,
         trim: true,
     })
     acceptanceCriteria: string;

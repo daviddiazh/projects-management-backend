@@ -32,6 +32,10 @@ export class ProjectService implements IProjectDBRepository {
   findByUserId(userId: string, params: QueryParamsDto): Promise<Project | Project[]> {
     return this.projectRepository.findByUserId(userId, params);
   }
+
+  findByResponsibleId(resonsibleId: string, params: QueryParamsDto): Promise<Project | Project[]>{
+    return this.projectRepository.findByResponsibleId(resonsibleId, params);
+  }
   
   update(payload: UpdateProjectDto): Promise<Project> {
     return this.projectRepository.update(payload);
