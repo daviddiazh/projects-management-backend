@@ -27,7 +27,7 @@ export class AuthService {
             const business = await this.businessService.findById( businessId );
 
             if( !business ) {
-                throw new UnauthorizedException('No se encontro ningún cliente por ese ID, por favor comuniquese con el administrador.');
+                throw new UnauthorizedException('No se encontro ningún negocio por ese ID, por favor comuníquese con el administrador.');
             }
 
             const user = await this.auth.create({
@@ -84,7 +84,7 @@ export class AuthService {
                 token,
             }
         } catch (error) {
-            throw new UnauthorizedException("Se ha expirado tu sesión, por favor inicia sesión nuevamente.");
+            throw new UnauthorizedException("Ya han pasado 4h descansa y vuelve a iniciar sesión.");
         } 
 
     }

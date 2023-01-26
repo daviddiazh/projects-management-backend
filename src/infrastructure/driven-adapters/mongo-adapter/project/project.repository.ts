@@ -27,7 +27,7 @@ export class ProjectDBRepository implements IProjectDBRepository {
             return newProject;
         } catch (error) {
             console.warn(error);
-            throw new BadRequestException('Ocurrio un error al crear el proyecto');
+            throw new BadRequestException('Ocurrió un error al crear el proyecto.');
         }
     }
 
@@ -50,7 +50,7 @@ export class ProjectDBRepository implements IProjectDBRepository {
             return projects;
         } catch (error) {
             console.warn(error);
-            throw new BadRequestException('Ocurrio un error al obtener los proyecto');
+            throw new BadRequestException('Ocurrió un error al obtener los proyectos.');
         }
     }
 
@@ -64,13 +64,13 @@ export class ProjectDBRepository implements IProjectDBRepository {
             const project = await this.projectModel.findById(projectId);
 
             if( !project ) {
-                throw new NotFoundException('Proyecto no encontrado');
+                throw new NotFoundException('Proyecto no encontrado.');
             }
 
             return project;
         } catch (error) {
             console.warn(error);
-            throw new NotFoundException('Proyecto no encontrado');
+            throw new NotFoundException('Proyecto no encontrado.');
         }
     }
 
@@ -92,13 +92,13 @@ export class ProjectDBRepository implements IProjectDBRepository {
                 .select('-__v');
 
             if( !projects ) {
-                throw new NotFoundException('No se encontraron proyectos con el ID del negocio');
+                throw new NotFoundException('No se encontraron proyectos con el ID del negocio.');
             }
 
             return projects;
         } catch (error) {
             console.warn(error);
-            throw new NotFoundException('No se encontraron proyectos con el ID del negocio');
+            throw new NotFoundException('No se encontraron proyectos con el ID del negocio.');
         }
     }
 
@@ -120,13 +120,13 @@ export class ProjectDBRepository implements IProjectDBRepository {
                 .select('-__v');
 
             if( !projects ) {
-                throw new NotFoundException('No se encontraron proyectos con el ID del usuario');
+                throw new NotFoundException('No se encontraron proyectos con el ID del usuario.');
             }
 
             return projects;
         } catch (error) {
             console.warn(error);
-            throw new NotFoundException('No se encontraron proyectos con el ID del usuario');
+            throw new NotFoundException('No se encontraron proyectos con el ID del usuario.');
         }
     }
 
@@ -141,7 +141,7 @@ export class ProjectDBRepository implements IProjectDBRepository {
             const project = await this.projectModel.findByIdAndUpdate({ _id: projectId }, payload);
 
             if( !project ){
-                throw new NotFoundException('No se encontro ningún proyecto con el ID del proyecto');
+                throw new NotFoundException('No se encontró ningún proyecto con el ID registrado.');
             }
 
             return project;
@@ -161,7 +161,7 @@ export class ProjectDBRepository implements IProjectDBRepository {
             const project = await this.projectModel.findByIdAndDelete({ _id: projectId });
 
             if( !project ){
-                throw new NotFoundException('No se encontro ningún proyecto con el ID del proyecto');
+                throw new NotFoundException('No se encontró ningún proyecto con el ID registrado.');
             }
 
             return;

@@ -95,7 +95,7 @@ export class UserDBRepository implements IUserDBRepository {
             const users: any = await this.userModel.find({name, lastName}).populate('businessId');
 
             if ( !users ) {
-                throw new NotFoundException('No se encontro ningún usuario por ese nombre.');
+                throw new NotFoundException('No se encontró ningún usuario por ese nombre.');
             }
 
             let newObjectUsers = users;
@@ -119,7 +119,7 @@ export class UserDBRepository implements IUserDBRepository {
 
             return returnUsers;
         } catch (error) {
-            throw new NotFoundException('No se encontro ningún usuario por ese nombre.');
+            throw new NotFoundException('No se encontró ningún usuario por ese nombre.');
         }
     }
 
@@ -134,7 +134,7 @@ export class UserDBRepository implements IUserDBRepository {
             const user: any = await this.userModel.findOne({email}).populate('businessId');
 
             if ( !user ) {
-                throw new NotFoundException('No se encontro ningún usuario por ese correo electrónico.');
+                throw new NotFoundException('No se encontró ningún usuario por ese correo electrónico.');
             }
 
             let newObjectUser = user;
@@ -154,7 +154,7 @@ export class UserDBRepository implements IUserDBRepository {
 
             return newObjectUser;
         } catch (error) {
-            throw new NotFoundException('No se encontro ningún usuario por ese correo electrónico.');
+            throw new NotFoundException('No se encontró ningún usuario por ese correo electrónico.');
         }
     }
 
@@ -167,7 +167,7 @@ export class UserDBRepository implements IUserDBRepository {
             const users: any = await this.userModel.find().populate('businessId');
 
             if ( !users ) {
-                throw new Error('Not found users - Repository (USER MODULE)');
+                throw new NotFoundException('No se encontró ningún usuario.');
             }
 
             let newObjectUsers = users;
@@ -180,7 +180,7 @@ export class UserDBRepository implements IUserDBRepository {
             return returnUsers;
         } catch (error) {
             console.log('Down Service in FINDALL method on Repository - ADAPTER');
-            throw new ServiceUnavailableException(`Down Service in findAll method: ${error.message}`);
+            throw new ServiceUnavailableException('No se encontró ningún usuario');
         }
     }
 
@@ -193,7 +193,7 @@ export class UserDBRepository implements IUserDBRepository {
             const users: any = await this.userModel.find({role}).populate('businessId');
 
             if ( !users ) {
-                throw new Error('Not found users - Repository (USER MODULE)');
+                throw new NotFoundException('No se encontró ningún usuario inscrito.');
             }
 
             let newObjectUsers = users;
@@ -220,7 +220,7 @@ export class UserDBRepository implements IUserDBRepository {
             const user: any = await this.userModel.findByIdAndUpdate({_id: id, role}).populate('businessId');
 
             if ( !user ) {
-                throw new NotFoundException('No se encontro ningún usuario por ese ID.');
+                throw new NotFoundException('No se encontró ningún usuario por ese ID.');
             }
 
             let newObjectUser = user;
@@ -240,7 +240,7 @@ export class UserDBRepository implements IUserDBRepository {
             
             return newObjectUser;
         } catch (error) {
-            throw new NotFoundException('No se encontro ningún usuario por ese ID.');
+            throw new NotFoundException('No se encontró ningún usuario por ese ID.');
         }
     }
 
@@ -254,12 +254,12 @@ export class UserDBRepository implements IUserDBRepository {
             const user = await this.userModel.findByIdAndDelete(id);
 
             if ( !user ) {
-                throw new NotFoundException('No se encontro ningún usuario por ese ID.');
+                throw new NotFoundException('No se encontró ningún usuario por ese ID.');
             }
 
             return;
         } catch (error) {
-            throw new NotFoundException('No se encontro ningún usuario por ese ID.');
+            throw new NotFoundException('No se encontró ningún usuario por ese ID.');
         }
     }
 

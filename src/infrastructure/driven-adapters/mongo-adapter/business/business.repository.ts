@@ -23,13 +23,13 @@ export class BusinessDBRepository implements IBusinessDBRepository {
             const createdBusiness = await this.businessModel.create(payload);
 
             if( !createdBusiness ){
-                throw new BadRequestException('Error creating an Business - Repository');
+                throw new BadRequestException('Error al crear el negocio.');
             }
 
             return createdBusiness;
         } catch (error) {
-            console.log('Down Service in Create method on Repository - ADAPTER');
-            throw new ServiceUnavailableException(`Down Service in create method - business: ${error.message}`)
+            // console.log('Down Service in Create method on Repository - ADAPTER');
+            throw new BadRequestException('Error al crear el negocio.')
         }
    }
 
@@ -43,12 +43,12 @@ export class BusinessDBRepository implements IBusinessDBRepository {
             const business = await this.businessModel.findById(_id);
 
             if ( !business ) {
-                throw new NotFoundException('No se encontro ningún cliente por ese ID, por favor comuniquese con el administrador.');
+                throw new NotFoundException('No se encontró ningún negocio por ese ID, por favor comuníquese con el administrador.');
             }
 
             return business;
         } catch (error) {
-            throw new NotFoundException('No se encontro ningún cliente por ese ID, por favor comuniquese con el administrador.')
+            throw new NotFoundException('No se encontró ningún negocio por ese ID, por favor comuníquese con el administrador.')
         }
    }
 
@@ -62,13 +62,13 @@ export class BusinessDBRepository implements IBusinessDBRepository {
             const business = await this.businessModel.findOne({businessName});
 
             if ( !business ) {
-                throw new NotFoundException('Not found business by id - Repository');
+                throw new NotFoundException('No se encontró ningún negocio con ese nombre.');
             }
 
             return business;
         } catch (error) {
-            console.log('Down Service in Find method on Repository - ADAPTER');
-            throw new ServiceUnavailableException(`Down Service in find by name method - business: ${error.message}`)
+            // console.log('Down Service in Find method on Repository - ADAPTER');
+            throw new ServiceUnavailableException('No se encontró ningún negocio con ese nombre.')
         }
    }
 
@@ -81,13 +81,13 @@ export class BusinessDBRepository implements IBusinessDBRepository {
             const business = await this.businessModel.find();
 
             if ( !business ) {
-                throw new NotFoundException('Not found business by id - Repository');
+                throw new NotFoundException('No se encontraron negocios.');
             }
 
             return business;
         } catch (error) {
-            console.log('Down Service in Find method on Repository - ADAPTER');
-            throw new ServiceUnavailableException(`Down Service in find all method - business: ${error.message}`)
+            // console.log('Down Service in Find method on Repository - ADAPTER');
+            throw new ServiceUnavailableException('No se encontraron negocios.')
         }
    }
 
@@ -100,13 +100,13 @@ export class BusinessDBRepository implements IBusinessDBRepository {
             const business = await this.businessModel.findByIdAndUpdate(businessId, { businessName }, {new: true});
 
             if ( !business ) {
-                throw new NotFoundException('Not found business by id - Update Repository');
+                throw new NotFoundException('No se encontró ningún negocio por ese ID para actualizar.');
             }
 
             return business;
         } catch (error) {
-            console.log('Down Service in Find method on Repository - ADAPTER');
-            throw new ServiceUnavailableException(`Down Service in find all method - business: ${error.message}`)
+            // console.log('Down Service in Find method on Repository - ADAPTER');
+            throw new ServiceUnavailableException('No se encontró ningún negocio por ese ID para actualizar.')
         }
     }
 

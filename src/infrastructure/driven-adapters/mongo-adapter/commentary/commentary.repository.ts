@@ -28,7 +28,7 @@ export class CommentaryDBRepository implements ICommentaryDBRepository  {
             return newCommentary;
         } catch (error) {
             console.warn(error);
-            throw new BadRequestException('Ocurrio un error al crear el comentario');
+            throw new BadRequestException('Ocurrió un error al crear el comentario.');
         };
     }
 
@@ -81,7 +81,7 @@ export class CommentaryDBRepository implements ICommentaryDBRepository  {
             return data;
         } catch (error) {
             console.warn(error);
-            throw new BadRequestException('Ocurrio un error al obtener los proyecto');
+            throw new NotFoundException('Ocurrió un error al obtener los comentarios del proyecto.');
         };
     }
 
@@ -96,7 +96,7 @@ export class CommentaryDBRepository implements ICommentaryDBRepository  {
             const commentaryDB = await this.commentaryModel.findByIdAndUpdate({ _id: commentaryId }, { commentary: commentaryRequest }, {new: true});
 
             if( !commentaryDB ){
-                throw new NotFoundException('No se encontro ningún proyecto con el ID del proyecto');
+                throw new NotFoundException('No se encontró ningún comentario con el ID registrado.');
             }
             
             return commentaryDB;
@@ -116,7 +116,7 @@ export class CommentaryDBRepository implements ICommentaryDBRepository  {
             const commentary = await this.commentaryModel.findByIdAndDelete({ _id: commentaryId });
 
             if( !commentary ){
-                throw new NotFoundException('No se encontro ningún comentario con ese ID');
+                throw new NotFoundException('No se encontró ningún comentario con ese ID');
             }
 
             return;
