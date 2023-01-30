@@ -56,7 +56,7 @@ export class AuthService {
 
             if( !isMatchPassword ){
                 throw new UnauthorizedException('Credenciales incorrectas, por favor verifiquelas y vuelva a intentarlo.');
-            } 
+            }
 
             return {
                 user: restDataUser,
@@ -84,7 +84,8 @@ export class AuthService {
                 token,
             }
         } catch (error) {
-            throw new UnauthorizedException("Ya han pasado 4h descansa y vuelve a iniciar sesión.");
+            //TODO: Si se cambia este mensaje se debe cambiar en el front la validación del useEffect en el App.tsx
+            throw new UnauthorizedException("Se ha expirado tu sesión, por favor inicia sesión nuevamente.");
         } 
 
     }
