@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { UserService } from './user.service';
 import { IUserDBRepository } from './user.repository.types';
 import { CreateUserDto } from './dto/user.dto';
@@ -42,9 +42,10 @@ export class UserController implements IUserDBRepository {
     return this.userService.findAllByRole(role); //TODO: Optimizar el servicio
   }
 
-  @Put('/updateRole/:id')
-  updateRole(@Param('id') id: string, @Body() role: string) {
-    return this.userService.updateRole(id, role);
+  @Patch('/updateRole/:_id')
+  updateRole(@Param('_id') _id: string, @Body() payload: any) {
+    const { role } = payload;
+    return this.userService.updateRole(_id, role);
   }
 
   @Delete('/delete/:id')

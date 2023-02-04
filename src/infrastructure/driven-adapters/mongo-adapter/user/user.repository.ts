@@ -212,12 +212,12 @@ export class UserDBRepository implements IUserDBRepository {
 
    /**
      * Update a User's role
-     * @params id, role
+     * @params _id, role
      * @return user's role update - The user's role update
     */
-    async updateRole (id: string, role: string): Promise<User> {
+    async updateRole (userId: string, role: string): Promise<User> {
         try {
-            const user: any = await this.userModel.findByIdAndUpdate({_id: id, role}).populate('businessId');
+            const user: any = await this.userModel.findByIdAndUpdate({_id: userId}, {role}, { new: true }).populate('businessId');
 
             if ( !user ) {
                 throw new NotFoundException('No se encontró ningún usuario por ese ID.');

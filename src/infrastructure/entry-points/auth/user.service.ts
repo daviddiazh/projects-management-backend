@@ -35,8 +35,8 @@ export class UserService implements IUserDBRepository {
         return this.user.findAllByRole(role);
     }
 
-    updateRole(id: string, role: string): Promise<User> {
-        return this.user.updateRole(id, role);
+    updateRole(_id: string, role: string): Promise<User> {
+        return this.user.updateRole(_id, role);
     }
 
     delete(id: string): Promise<void> {
