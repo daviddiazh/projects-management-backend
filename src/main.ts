@@ -3,7 +3,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './application/app.module';
 
 async function bootstrap() {
-
   const app = await NestFactory.create(AppModule, { cors: true });
 
   // app.setGlobalPrefix('api');
@@ -15,7 +14,7 @@ async function bootstrap() {
       transform: true,
       transformOptions: {
         enableImplicitConversion: true,
-      }
+      },
     }),
   );
 

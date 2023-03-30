@@ -8,10 +8,7 @@ import { QueryParamsDto } from '../common/dto/query-params.dto';
 
 @Injectable()
 export class ProjectService implements IProjectDBRepository {
-
-  constructor(
-    private readonly projectRepository: ProjectDBRepository,
-  ){}
+  constructor(private readonly projectRepository: ProjectDBRepository) {}
 
   create(createProjectDto: CreateProjectDto) {
     return this.projectRepository.create(createProjectDto);
@@ -25,24 +22,32 @@ export class ProjectService implements IProjectDBRepository {
     return this.projectRepository.findById(projectId);
   }
 
-  findByBusinessId(businessId: string, params: QueryParamsDto): Promise<Project | Project[]> {
+  findByBusinessId(
+    businessId: string,
+    params: QueryParamsDto,
+  ): Promise<Project | Project[]> {
     return this.projectRepository.findByBusinessId(businessId, params);
   }
 
-  findByUserId(userId: string, params: QueryParamsDto): Promise<Project | Project[]> {
+  findByUserId(
+    userId: string,
+    params: QueryParamsDto,
+  ): Promise<Project | Project[]> {
     return this.projectRepository.findByUserId(userId, params);
   }
 
-  findByResponsibleId(resonsibleId: string, params: QueryParamsDto): Promise<Project | Project[]>{
+  findByResponsibleId(
+    resonsibleId: string,
+    params: QueryParamsDto,
+  ): Promise<Project | Project[]> {
     return this.projectRepository.findByResponsibleId(resonsibleId, params);
   }
-  
-  update(payload: UpdateProjectDto): Promise<Project> {
-    return this.projectRepository.update(payload);
+
+  update(projectId: string, payload: UpdateProjectDto): Promise<Project> {
+    return this.projectRepository.update(projectId, payload);
   }
-  
+
   remove(projectId: string): Promise<void> {
     return this.projectRepository.remove(projectId);
   }
-
 }

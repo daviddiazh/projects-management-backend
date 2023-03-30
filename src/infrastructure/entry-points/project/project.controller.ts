@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
@@ -8,10 +17,7 @@ import { QueryParamsDto } from '../common/dto/query-params.dto';
 
 @Controller('project')
 export class ProjectController implements IProjectDBRepository {
-  
-  constructor(
-    private readonly projectService: ProjectService
-  ){}
+  constructor(private readonly projectService: ProjectService) {}
 
   @Post('create')
   create(@Body() createProjectDto: CreateProjectDto) {
@@ -29,28 +35,39 @@ export class ProjectController implements IProjectDBRepository {
   }
 
   @Get('findByBusinessId/:businessId')
-  findByBusinessId(@Param('businessId') businessId: string, @Query() params: QueryParamsDto): Promise<Project | Project[]> {
+  findByBusinessId(
+    @Param('businessId') businessId: string,
+    @Query() params: QueryParamsDto,
+  ): Promise<Project | Project[]> {
     return this.projectService.findByBusinessId(businessId, params);
   }
-  
+
   @Get('findByUserId/:userId')
-  findByUserId(@Param('userId') userId: string, @Query() params: QueryParamsDto): Promise<Project | Project[]> {
+  findByUserId(
+    @Param('userId') userId: string,
+    @Query() params: QueryParamsDto,
+  ): Promise<Project | Project[]> {
     return this.projectService.findByUserId(userId, params);
   }
 
   @Get('findByResponsibleId/:responsibleId')
-  findByResponsibleId(@Param('responsibleId') responsibleId: string, @Query() params: QueryParamsDto): Promise<Project | Project[]> {
+  findByResponsibleId(
+    @Param('responsibleId') responsibleId: string,
+    @Query() params: QueryParamsDto,
+  ): Promise<Project | Project[]> {
     return this.projectService.findByResponsibleId(responsibleId, params);
   }
-  
-  @Put('update')
-  update(@Body() payload: UpdateProjectDto): Promise<Project> {
-    return this.projectService.update(payload);
+
+  @Put('update/:projectId')
+  update(
+    @Param('projectId') projectId: string,
+    @Body() payload: UpdateProjectDto,
+  ): Promise<Project> {
+    return this.projectService.update(projectId, payload);
   }
-  
+
   @Delete('remove/:projectId')
   remove(@Param('projectId') projectId: string): Promise<void> {
     return this.projectService.remove(projectId);
   }
-
 }

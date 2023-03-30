@@ -3,7 +3,7 @@ import { ProjectService } from './project.service';
 import { ProjectController } from './project.controller';
 
 @Module({
-  providers: [ ProjectService ],
-  controllers: [ ProjectController ],
+  providers: [ProjectService],
+  controllers: [ProjectController],
 })
 export class ProjectModule {}

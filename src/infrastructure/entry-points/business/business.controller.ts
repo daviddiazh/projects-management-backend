@@ -7,9 +7,7 @@ import { Schema } from 'mongoose';
 
 @Controller('/business')
 export class BusinessController implements IBusinessDBRepository {
-  constructor(
-    private readonly businessService: BusinessService
-  ) {}
+  constructor(private readonly businessService: BusinessService) {}
 
   @Post('/create')
   create(@Body() createBusinessDto: CreateBusinessDto) {
@@ -33,7 +31,7 @@ export class BusinessController implements IBusinessDBRepository {
 
   @Put('/update')
   update(@Body() payload): Promise<Business> {
-    const { businessId, businessName} = payload;
-    return this.businessService.update( businessId, businessName );
+    const { businessId, businessName } = payload;
+    return this.businessService.update(businessId, businessName);
   }
 }
