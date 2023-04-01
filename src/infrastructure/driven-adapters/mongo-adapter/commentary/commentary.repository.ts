@@ -40,7 +40,7 @@ export class CommentaryDBRepository implements ICommentaryDBRepository {
     params: QueryParamsDto,
   ): Promise<any[]> {
     try {
-      const { limit = 5, offset = 0 } = params;
+      const { limit, offset = 0 } = params;
 
       const commentaries = await this.commentaryModel
         .find({ projectId })
