@@ -7,6 +7,7 @@ import { Project } from 'src/infrastructure/entry-points/project/entities/projec
 import { IProjectDBRepository } from '../../../entry-points/project/project.repository.types';
 import { ProjectSpec } from './project.schema';
 import { QueryParamsDto } from '../../../entry-points/common/dto/query-params.dto';
+import { PatchStatusDto } from '../../../entry-points/project/dto/patch-status.dto';
 
 export class ProjectDBRepository implements IProjectDBRepository {
   constructor(
@@ -180,6 +181,34 @@ export class ProjectDBRepository implements IProjectDBRepository {
       throw new NotFoundException(
         'No se encontraron proyectos con el ID del usuario.',
       );
+    }
+  }
+
+  /**
+   * Update Project
+   * @param payload
+   * @return a Promise of Project
+   */
+  async patchStatus(projectId: string, payload: PatchStatusDto): Promise<void> {
+    try {
+      const project = await this.projectModel.findByIdAndUpdate(
+        { _id: projectId },
+        {
+          status: payload.newStatus,
+        },
+        {
+          new: true,
+        },
+      );
+
+      if (!project) {
+        throw new NotFoundException(
+          'No se encontró ningún proyecto con el ID registrado.',
+        );
+      }
+    } catch (error) {
+      console.warn(error);
+      throw new NotFoundException(error.message);
     }
   }
 

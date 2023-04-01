@@ -5,6 +5,7 @@ import { ProjectDBRepository } from '../../driven-adapters/mongo-adapter/project
 import { IProjectDBRepository } from './project.repository.types';
 import { Project } from './entities/project.entity';
 import { QueryParamsDto } from '../common/dto/query-params.dto';
+import { PatchStatusDto } from './dto/patch-status.dto';
 
 @Injectable()
 export class ProjectService implements IProjectDBRepository {
@@ -41,6 +42,11 @@ export class ProjectService implements IProjectDBRepository {
     params: QueryParamsDto,
   ): Promise<Project | Project[]> {
     return this.projectRepository.findByResponsibleId(resonsibleId, params);
+  }
+
+  patchStatus(projectId: string, payload: PatchStatusDto): Promise<void> {
+    this.projectRepository.patchStatus(projectId, payload);
+    return;
   }
 
   update(projectId: string, payload: UpdateProjectDto): Promise<Project> {

@@ -7,6 +7,7 @@ import {
   Delete,
   Put,
   Query,
+  Patch,
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
@@ -14,6 +15,7 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 import { IProjectDBRepository } from './project.repository.types';
 import { Project } from './entities/project.entity';
 import { QueryParamsDto } from '../common/dto/query-params.dto';
+import { PatchStatusDto } from './dto/patch-status.dto';
 
 @Controller('project')
 export class ProjectController implements IProjectDBRepository {
@@ -64,6 +66,15 @@ export class ProjectController implements IProjectDBRepository {
     @Body() payload: UpdateProjectDto,
   ): Promise<Project> {
     return this.projectService.update(projectId, payload);
+  }
+
+  @Patch('patchStatus/:projectId')
+  patchStatus(
+    @Param('projectId') projectId: string,
+    @Body() payload: PatchStatusDto,
+  ): Promise<void> {
+    this.projectService.patchStatus(projectId, payload);
+    return;
   }
 
   @Delete('remove/:projectId')

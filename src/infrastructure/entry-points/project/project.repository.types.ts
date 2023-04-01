@@ -2,6 +2,7 @@ import { Project } from './entities/project.entity';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { QueryParamsDto } from '../common/dto/query-params.dto';
+import { PatchStatusDto } from './dto/patch-status.dto';
 
 export abstract class IProjectDBRepository {
   abstract create(payload: CreateProjectDto): Promise<Project>;
@@ -15,6 +16,10 @@ export abstract class IProjectDBRepository {
     userId: string,
     params: QueryParamsDto,
   ): Promise<Project[] | Project>;
+  abstract patchStatus(
+    projectId: string,
+    payload: PatchStatusDto,
+  ): Promise<void>;
   abstract update(
     projectId: string,
     payload: UpdateProjectDto,
