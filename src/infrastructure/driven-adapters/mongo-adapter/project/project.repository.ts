@@ -218,11 +218,22 @@ export class ProjectDBRepository implements IProjectDBRepository {
    * @return a Promise of Project
    */
   async update(projectId: string, payload: UpdateProjectDto): Promise<Project> {
-    const { title, status, description, acceptanceCriteria } = payload;
+    const {
+      authorId,
+      businessId,
+      responsiblesId,
+      title,
+      status,
+      description,
+      acceptanceCriteria,
+    } = payload;
     try {
       const project = await this.projectModel.findByIdAndUpdate(
         { _id: projectId },
         {
+          authorId,
+          businessId,
+          responsiblesId,
           title,
           status,
           description,

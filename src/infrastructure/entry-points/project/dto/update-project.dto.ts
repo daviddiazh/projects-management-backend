@@ -1,9 +1,17 @@
-import { IsString, IsOptional, IsIn } from 'class-validator';
+import { IsString, IsOptional, IsIn, IsArray } from 'class-validator';
 import { Status } from 'src/domain/common/project/status.enum';
 
 export class UpdateProjectDto {
-  // authorId: Schema.Types.ObjectId;
-  // responsiblesId: Schema.Types.ObjectId[];
+  @IsOptional()
+  @IsString()
+  authorId: string;
+  @IsOptional()
+  // @IsString()
+  @IsArray()
+  responsiblesId: string[];
+  @IsOptional()
+  @IsString()
+  businessId: string;
   @IsOptional()
   @IsString()
   title: string;

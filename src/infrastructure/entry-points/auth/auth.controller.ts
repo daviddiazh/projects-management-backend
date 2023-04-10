@@ -5,10 +5,7 @@ import { signUpDto, LoginDto } from './dto/auth-dto';
 
 @Controller('/auth')
 export class AuthController {
-  
-  constructor(
-    private readonly authService: AuthService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Post('/signUp')
   signUp(@Body() payload: signUpDto) {
@@ -26,13 +23,11 @@ export class AuthController {
   }
 
   @Get('/private')
-  @UseGuards( AuthGuard() )
+  @UseGuards(AuthGuard())
   testPrivateRoute() {
-
     return {
       ok: true,
-      msg: 'Hola mundo desde el lado privado...'
-    }
+      msg: 'Hola mundo desde el lado privado...',
+    };
   }
-
 }
