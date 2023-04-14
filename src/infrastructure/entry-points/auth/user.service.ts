@@ -6,41 +6,37 @@ import { CreateUserDto } from './dto/user.dto';
 
 @Injectable()
 export class UserService implements IUserDBRepository {
+  constructor(private readonly user: UserDBRepository) {}
 
-    constructor(
-        private readonly user: UserDBRepository
-    ){}
+  create(payload: CreateUserDto): Promise<User> {
+    return this.user.create(payload);
+  }
 
-    create(payload: CreateUserDto): Promise<User> {
-        return this.user.create(payload);
-    }
+  findById(id: string): Promise<User> {
+    return this.user.findById(id);
+  }
 
-    findById(id: string): Promise<User> {
-        return this.user.findById(id);
-    }
+  findByName(name: string, lastName: string): Promise<User[]> {
+    return this.user.findByName(name, lastName);
+  }
 
-    findByName(name: string, lastName: string): Promise<User[]> {
-        return this.user.findByName(name, lastName);
-    }
+  findByEmail(email: string): Promise<User> {
+    return this.user.findByEmail(email);
+  }
 
-    findByEmail(email: string): Promise<User> {
-        return this.user.findByEmail(email);
-    }
+  findAll(): Promise<User[]> {
+    return this.user.findAll();
+  }
 
-    findAll(): Promise<User[]> {
-        return this.user.findAll();
-    }
+  findAllByRole(role: string): Promise<User | User[]> {
+    return this.user.findAllByRole(role);
+  }
 
-    findAllByRole(role: string): Promise<User | User[]> {
-        return this.user.findAllByRole(role);
-    }
+  updateRole(_id: string, role: string): Promise<User> {
+    return this.user.updateRole(_id, role);
+  }
 
-    updateRole(_id: string, role: string): Promise<User> {
-        return this.user.updateRole(_id, role);
-    }
-
-    delete(id: string): Promise<void> {
-        return this.user.delete(id);
-    }
-
+  delete(id: string): Promise<void> {
+    return this.user.delete(id);
+  }
 }
